@@ -8,7 +8,8 @@ body {
 
 #main-container {
     padding: 16px;
-    padding-bottom: 80px; /* Space for button */
+    padding-bottom: 80px;
+    /* Space for button */
 }
 
 /* TABS */
@@ -68,6 +69,15 @@ input[type="number"] {
     background: var(--tg-theme-secondary-bg-color, #f5f5f5);
     color: var(--tg-theme-text-color, #000);
     font-size: 16px;
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* PILLS */

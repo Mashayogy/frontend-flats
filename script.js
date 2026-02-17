@@ -51,10 +51,15 @@ function sendData() {
         max_price: document.getElementById('price-max').value,
         min_area: document.getElementById('area-min').value,
         max_area: document.getElementById('area-max').value,
+        min_kitchen: document.getElementById('kitchen-min').value,
+        max_kitchen: document.getElementById('kitchen-max').value,
+        metro_walk: document.getElementById('metro-min').value,
+        metro_transport: document.getElementById('metro-transport').value,
 
         property_types: getSelectedValues('property-type'),
         rooms: getSelectedValues('rooms'),
-        floors: getSelectedValues('floor')
+        floors: getSelectedValues('floor'),
+        amenities: getSelectedValues('amenities')
     };
 
     tg.sendData(JSON.stringify(data));

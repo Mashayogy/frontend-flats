@@ -32,13 +32,13 @@
             </div>
 
             <div class="form-group">
-                <label>Количество Комнат</label>
+                <label>Количество комнат</label>
                 <div class="pill-group" id="rooms">
-                    <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')">T0 (Студия)</div>
-                    <div class="pill" data-value="T1" onclick="togglePill(this, 'rooms')">T1</div>
-                    <div class="pill" data-value="T2" onclick="togglePill(this, 'rooms')">T2</div>
-                    <div class="pill" data-value="T3" onclick="togglePill(this, 'rooms')">T3</div>
-                    <div class="pill" data-value="T4+" onclick="togglePill(this, 'rooms')">T4+</div>
+                    <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')">Студия</div>
+                    <div class="pill" data-value="T1" onclick="togglePill(this, 'rooms')">1</div>
+                    <div class="pill" data-value="T2" onclick="togglePill(this, 'rooms')">2</div>
+                    <div class="pill" data-value="T3" onclick="togglePill(this, 'rooms')">3</div>
+                    <div class="pill" data-value="T4+" onclick="togglePill(this, 'rooms')">4+</div>
                 </div>
             </div>
 
@@ -59,6 +59,14 @@
             </div>
 
             <div class="form-group">
+                <label>Площадь кухни (м²)</label>
+                <div class="range-inputs">
+                    <input type="number" id="kitchen-min" placeholder="От">
+                    <input type="number" id="kitchen-max" placeholder="До">
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label>Этаж</label>
                 <div class="pill-group" id="floor">
                     <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')">Не первый</div>
@@ -67,7 +75,22 @@
                 </div>
             </div>
 
-            <!-- More filters will go here -->
+            <div class="form-group">
+                <label>Метро (минут)</label>
+                <div class="range-inputs">
+                    <input type="number" id="metro-min" placeholder="Пешком">
+                    <input type="number" id="metro-transport" placeholder="На транспорте">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Удобства</label>
+                <div class="pill-group" id="amenities">
+                    <div class="pill" data-value="lift" onclick="togglePill(this, 'amenities')">Есть лифт</div>
+                    <div class="pill" data-value="furniture" onclick="togglePill(this, 'amenities')">Мебель</div>
+                    <div class="pill" data-value="pets" onclick="togglePill(this, 'amenities')">Можно с животными</div>
+                </div>
+            </div>
         </div>
 
         <!-- RESULTS TAB -->
