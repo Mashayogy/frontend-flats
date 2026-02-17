@@ -1,6 +1,7 @@
 // Initialize Telegram WebApp
 let tg = window.Telegram.WebApp;
 tg.expand();
+tg.ready();
 
 // Apply theme colors
 document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
@@ -61,8 +62,6 @@ function sendData() {
         max_price: document.getElementById('price-max').value,
         min_area: document.getElementById('area-min').value,
         max_area: document.getElementById('area-max').value,
-        min_kitchen: document.getElementById('kitchen-min').value,
-        max_kitchen: document.getElementById('kitchen-max').value,
 
         min_floor: document.getElementById('floor-min').value,
         max_floor: document.getElementById('floor-max').value,
