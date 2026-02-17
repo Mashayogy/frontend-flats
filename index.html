@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flats Alerts Portugal</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main-container">
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('search')">🔍 Поиск</button>
+            <button class="tab-btn" onclick="switchTab('results')">🏠 Объявления</button>
+            <button class="tab-btn" onclick="switchTab('map')">🗺 Карта</button>
+        </div>
+
+        <!-- SEARCH TAB -->
+        <div id="tab-search" class="tab-content active">
+            <h2>Настройки поиска</h2>
+
+            <div class="form-group">
+                <label>Тип жилья</label>
+                <div class="pill-group" id="property-type">
+                    <div class="pill" data-value="flat" onclick="togglePill(this, 'property-type')">Квартира</div>
+                    <div class="pill" data-value="room" onclick="togglePill(this, 'property-type')">Комната</div>
+                    <div class="pill" data-value="house" onclick="togglePill(this, 'property-type')">Дом</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Количество Комнат</label>
+                <div class="pill-group" id="rooms">
+                    <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')">T0 (Студия)</div>
+                    <div class="pill" data-value="T1" onclick="togglePill(this, 'rooms')">T1</div>
+                    <div class="pill" data-value="T2" onclick="togglePill(this, 'rooms')">T2</div>
+                    <div class="pill" data-value="T3" onclick="togglePill(this, 'rooms')">T3</div>
+                    <div class="pill" data-value="T4+" onclick="togglePill(this, 'rooms')">T4+</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Цена (€/мес)</label>
+                <div class="range-inputs">
+                    <input type="number" id="price-min" placeholder="От">
+                    <input type="number" id="price-max" placeholder="До">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Площадь (м²)</label>
+                <div class="range-inputs">
+                    <input type="number" id="area-min" placeholder="От">
+                    <input type="number" id="area-max" placeholder="До">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Этаж</label>
+                <div class="pill-group" id="floor">
+                    <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')">Не первый</div>
+                    <div class="pill" data-value="not_last" onclick="togglePill(this, 'floor')">Не последний</div>
+                    <div class="pill" data-value="only_last" onclick="togglePill(this, 'floor')">Только последний</div>
+                </div>
+            </div>
+
+            <!-- More filters will go here -->
+        </div>
+
+        <!-- RESULTS TAB -->
+        <div id="tab-results" class="tab-content">
+            <div id="ads-container">
+                <div class="loading-spinner">Загрузка...</div>
+            </div>
+        </div>
+
+        <!-- MAP TAB -->
+        <div id="tab-map" class="tab-content">
+            <div id="map-container" style="height: 400px; background: #eee;">
+                Map will be here
+            </div>
+        </div>
+    </div>
+
+    <div class="main-button-container">
+        <button id="main-btn" onclick="sendData()">Сохранить поиск</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
