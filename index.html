@@ -22,15 +22,20 @@
         <div id="tab-search" class="tab-content active">
             <h2>Настройки поиска</h2>
 
+            <!-- 1. Тип жилья -->
             <div class="form-group">
                 <label>Тип жилья</label>
                 <div class="pill-group" id="property-type">
                     <div class="pill" data-value="flat" onclick="togglePill(this, 'property-type')">Квартира</div>
                     <div class="pill" data-value="room" onclick="togglePill(this, 'property-type')">Комната</div>
-                    <div class="pill" data-value="house" onclick="togglePill(this, 'property-type')">Дом</div>
+                    <div class="pill" data-value="house" onclick="togglePill(this, 'property-type')">Дома и коттеджи
+                    </div>
+                    <div class="pill" data-value="penthouse" onclick="togglePill(this, 'property-type')">Пентхаус</div>
+                    <div class="pill" data-value="duplex" onclick="togglePill(this, 'property-type')">Дуплекс</div>
                 </div>
             </div>
 
+            <!-- 2. Количество комнат -->
             <div class="form-group">
                 <label>Количество комнат</label>
                 <div class="pill-group" id="rooms">
@@ -42,6 +47,17 @@
                 </div>
             </div>
 
+            <!-- 3. Сан. узлы -->
+            <div class="form-group">
+                <label>Сан. узлы</label>
+                <div class="pill-group" id="bathrooms">
+                    <div class="pill" data-value="1" onclick="togglePill(this, 'bathrooms')">1</div>
+                    <div class="pill" data-value="2" onclick="togglePill(this, 'bathrooms')">2</div>
+                    <div class="pill" data-value="3+" onclick="togglePill(this, 'bathrooms')">3+</div>
+                </div>
+            </div>
+
+            <!-- 4. Цена -->
             <div class="form-group">
                 <label>Цена (€/мес)</label>
                 <div class="range-inputs">
@@ -50,6 +66,7 @@
                 </div>
             </div>
 
+            <!-- 5. Площадь -->
             <div class="form-group">
                 <label>Площадь (м²)</label>
                 <div class="range-inputs">
@@ -58,14 +75,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Площадь кухни (м²)</label>
-                <div class="range-inputs">
-                    <input type="number" id="kitchen-min" placeholder="От">
-                    <input type="number" id="kitchen-max" placeholder="До">
-                </div>
-            </div>
-
+            <!-- 6. Этаж -->
             <div class="form-group">
                 <label>Этаж</label>
                 <div class="range-inputs" style="margin-bottom: 8px;">
@@ -79,6 +89,30 @@
                 </div>
             </div>
 
+            <!-- 7. Состояние -->
+            <div class="form-group">
+                <label>Состояние</label>
+                <div class="pill-group" id="condition">
+                    <div class="pill" data-value="new" onclick="togglePill(this, 'condition')">Новостройка</div>
+                    <div class="pill" data-value="good" onclick="togglePill(this, 'condition')">Хорошее состояние</div>
+                    <div class="pill" data-value="renovation" onclick="togglePill(this, 'condition')">Нужен ремонт</div>
+                </div>
+            </div>
+
+            <!-- 8. Характеристики -->
+            <div class="form-group">
+                <label>Характеристики</label>
+                <div class="pill-group" id="features">
+                    <div class="pill" data-value="ac" onclick="togglePill(this, 'features')">Кондиционер</div>
+                    <div class="pill" data-value="lift" onclick="togglePill(this, 'features')">Лифт</div>
+                    <div class="pill" data-value="garage" onclick="togglePill(this, 'features')">Гараж</div>
+                    <div class="pill" data-value="garden" onclick="togglePill(this, 'features')">Сад</div>
+                    <div class="pill" data-value="pool" onclick="togglePill(this, 'features')">Бассейн</div>
+                    <div class="pill" data-value="balcony" onclick="togglePill(this, 'features')">Балкон / терраса</div>
+                </div>
+            </div>
+
+            <!-- 9. Комиссия -->
             <div class="form-group">
                 <label>Комиссия агента</label>
                 <label class="toggle-switch">
@@ -88,6 +122,7 @@
                 </label>
             </div>
 
+            <!-- 10. Кто будет жить -->
             <div class="form-group">
                 <label>Кто будет жить</label>
                 <div class="pill-group" id="rules">
@@ -103,6 +138,7 @@
                 </p>
             </div>
 
+            <!-- 11. Регион -->
             <h3>📍 Расположение</h3>
             <div class="form-group">
                 <label>Регион</label>
@@ -116,6 +152,7 @@
                 <button class="action-btn" onclick="openMapDraw()">🗺 Нарисовать область на карте</button>
             </div>
 
+            <!-- 12. Время до метро -->
             <div class="form-group">
                 <label>Время до метро</label>
                 <div class="pill-group" id="metro-distance">
@@ -130,6 +167,7 @@
                 </div>
             </div>
 
+            <!-- 13. Окружение -->
             <div class="form-group">
                 <label>Окружение</label>
                 <div class="pill-group" id="environment">
@@ -139,17 +177,19 @@
                 </div>
             </div>
 
+            <!-- 14. Уведомления -->
             <h3>🔔 Уведомления</h3>
             <div class="form-group">
                 <div class="pill-group" id="notification-type">
-                    <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')">
-                        Только новые</div>
                     <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')">Все подходящие
                     </div>
+                    <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')">
+                        Только новые</div>
                 </div>
-                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 5px;">
-                    "Все подходящие" — пришлю вам список всех найденных квартир сразу. "Только новые" — буду присылать
-                    только свежие объявления по мере их появления.
+                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 5px; line-height: 1.4;">
+                    Выберите опцию «Все подходящие», чтобы сразу увидеть все объявления, соответствующие вашим фильтрам.
+                    После этого вы будете получать уведомления о новых публикациях. Если выбрать «Только новые»,
+                    уведомления будут приходить только об объявлениях, опубликованных после запуска бота.
                 </p>
             </div>
 
