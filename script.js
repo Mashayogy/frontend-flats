@@ -67,8 +67,7 @@ function sendData() {
         min_floor: document.getElementById('floor-min').value,
         max_floor: document.getElementById('floor-max').value,
 
-        metro_walk: document.getElementById('metro-min').value,
-        metro_transport: document.getElementById('metro-transport').value,
+        metro_minutes: getSelectedValues('metro-distance')[0] || 'any',
 
         no_commission: document.getElementById('no-commission').checked,
 

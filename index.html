@@ -110,10 +110,16 @@
             </div>
 
             <div class="form-group">
-                <label>Метро (минут)</label>
-                <div class="range-inputs">
-                    <input type="number" id="metro-min" placeholder="Пешком">
-                    <input type="number" id="metro-transport" placeholder="На транспорте">
+                <label>Время до метро</label>
+                <div class="pill-group" id="metro-distance">
+                    <div class="pill" data-value="5" onclick="selectOnePill(this, 'metro-distance')">до 5 мин</div>
+                    <div class="pill" data-value="10" onclick="selectOnePill(this, 'metro-distance')">до 10 мин</div>
+                    <div class="pill" data-value="15" onclick="selectOnePill(this, 'metro-distance')">до 15 мин</div>
+                    <div class="pill" data-value="20" onclick="selectOnePill(this, 'metro-distance')">до 20 мин</div>
+                    <div class="pill" data-value="25" onclick="selectOnePill(this, 'metro-distance')">до 25 мин</div>
+                    <div class="pill" data-value="30" onclick="selectOnePill(this, 'metro-distance')">до 30 мин</div>
+                    <div class="pill selected" data-value="any" onclick="selectOnePill(this, 'metro-distance')">Не важно
+                    </div>
                 </div>
             </div>
 
@@ -121,7 +127,8 @@
                 <label>Окружение</label>
                 <div class="pill-group" id="environment">
                     <div class="pill" data-value="park" onclick="togglePill(this, 'environment')">Парк рядом</div>
-                    <div class="pill" data-value="quiet" onclick="togglePill(this, 'environment')">Тихая дорога</div>
+                    <div class="pill" data-value="quiet" onclick="togglePill(this, 'environment')">Без шумных дорог
+                        рядом</div>
                 </div>
             </div>
 
@@ -130,9 +137,13 @@
                 <div class="pill-group" id="notification-type">
                     <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')">
                         Только новые</div>
-                    <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')">Все входящие
+                    <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')">Все подходящие
                     </div>
                 </div>
+                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 5px;">
+                    "Все подходящие" — пришлю вам список всех найденных квартир сразу. "Только новые" — буду присылать
+                    только свежие объявления по мере их появления.
+                </p>
             </div>
 
         </div>
