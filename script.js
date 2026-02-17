@@ -42,6 +42,16 @@ function togglePill(el, groupName) {
     el.classList.toggle('selected');
 }
 
+// Single Select Logic
+function selectOnePill(el, groupName) {
+    document.querySelectorAll(`#${groupName} .pill`).forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+function openMapDraw() {
+    alert("Функция рисования на карте (Polygon) пока в разработке!");
+}
+
 // Send Data Back
 function sendData() {
     // Collect data
@@ -53,13 +63,21 @@ function sendData() {
         max_area: document.getElementById('area-max').value,
         min_kitchen: document.getElementById('kitchen-min').value,
         max_kitchen: document.getElementById('kitchen-max').value,
+
+        min_floor: document.getElementById('floor-min').value,
+        max_floor: document.getElementById('floor-max').value,
+
         metro_walk: document.getElementById('metro-min').value,
         metro_transport: document.getElementById('metro-transport').value,
+
+        no_commission: document.getElementById('no-commission').checked,
 
         property_types: getSelectedValues('property-type'),
         rooms: getSelectedValues('rooms'),
         floors: getSelectedValues('floor'),
-        amenities: getSelectedValues('amenities')
+        rules: getSelectedValues('rules'),
+        environment: getSelectedValues('environment'),
+        notification_type: getSelectedValues('notification-type')[0] || 'new'
     };
 
     tg.sendData(JSON.stringify(data));

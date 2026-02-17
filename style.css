@@ -80,6 +80,58 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* TOGGLE SWITCH */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    width: 40px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: .4s;
+    margin-right: 10px;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: var(--tg-theme-button-color, #2481cc);
+}
+
+input:checked+.slider:before {
+    transform: translateX(16px);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-color, #2481cc);
+    background: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 /* PILLS */
 .pill-group {
     display: flex;

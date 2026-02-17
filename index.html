@@ -68,11 +68,45 @@
 
             <div class="form-group">
                 <label>Этаж</label>
+                <div class="range-inputs" style="margin-bottom: 8px;">
+                    <input type="number" id="floor-min" placeholder="От">
+                    <input type="number" id="floor-max" placeholder="До">
+                </div>
                 <div class="pill-group" id="floor">
                     <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')">Не первый</div>
                     <div class="pill" data-value="not_last" onclick="togglePill(this, 'floor')">Не последний</div>
                     <div class="pill" data-value="only_last" onclick="togglePill(this, 'floor')">Только последний</div>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label>Комиссия агента</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="no-commission">
+                    <span class="slider"></span>
+                    <span class="label-text">Без комиссии</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Кто будет жить</label>
+                <div class="pill-group" id="rules">
+                    <div class="pill" data-value="kids" onclick="togglePill(this, 'rules')">Можно с детьми</div>
+                    <div class="pill" data-value="pets" onclick="togglePill(this, 'rules')">Можно с животными</div>
+                </div>
+            </div>
+
+            <h3>📍 Расположение</h3>
+            <div class="form-group">
+                <label>Регион</label>
+                <select id="region-select">
+                    <option value="lisbon">Лиссабон</option>
+                    <option value="porto" disabled>Порту (скоро)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="action-btn" onclick="openMapDraw()">🗺 Нарисовать область на карте</button>
             </div>
 
             <div class="form-group">
@@ -84,13 +118,23 @@
             </div>
 
             <div class="form-group">
-                <label>Удобства</label>
-                <div class="pill-group" id="amenities">
-                    <div class="pill" data-value="lift" onclick="togglePill(this, 'amenities')">Есть лифт</div>
-                    <div class="pill" data-value="furniture" onclick="togglePill(this, 'amenities')">Мебель</div>
-                    <div class="pill" data-value="pets" onclick="togglePill(this, 'amenities')">Можно с животными</div>
+                <label>Окружение</label>
+                <div class="pill-group" id="environment">
+                    <div class="pill" data-value="park" onclick="togglePill(this, 'environment')">Парк рядом</div>
+                    <div class="pill" data-value="quiet" onclick="togglePill(this, 'environment')">Тихая дорога</div>
                 </div>
             </div>
+
+            <h3>🔔 Уведомления</h3>
+            <div class="form-group">
+                <div class="pill-group" id="notification-type">
+                    <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')">
+                        Только новые</div>
+                    <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')">Все входящие
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- RESULTS TAB -->
