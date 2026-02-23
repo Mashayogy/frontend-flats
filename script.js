@@ -72,6 +72,9 @@ function sendData() {
 
         property_types: getSelectedValues('property-type'),
         rooms: getSelectedValues('rooms'),
+        bathrooms: getSelectedValues('bathrooms'),
+        condition: getSelectedValues('condition'),
+        features: getSelectedValues('features'),
         floors: getSelectedValues('floor'),
         rules: getSelectedValues('rules'),
         environment: getSelectedValues('environment'),
@@ -85,3 +88,51 @@ function getSelectedValues(groupId) {
     const selected = document.querySelectorAll(`#${groupId} .pill.selected`);
     return Array.from(selected).map(el => el.getAttribute('data-value'));
 }
+
+// Load filters from URL on startup
+function loadFiltersFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+
+    // 1. Numeric inputs
+    const inputs = {
+        'min_price': 'price-min',
+        'max_price': 'price-max',
+        'min_area': 'area-min',
+        'max_area': 'area-max',
+        'min_floor': 'floor-min',
+        'max_floor': 'floor-max'
+    };
+    for (const [param, id] of Object.entries(inputs)) {
+        if (params.has(param)) {
+            document.getElementById(id).value = params.get(param);
+        }
+    }
+
+    // 2. Toggle Switches
+    if (params.get('no_commission') === 'true' || params.get('commission_included') === '0') {
+        document.getElementById('no-commission').checked = true;
+    }
+
+    // 3. Multi-select Pills
+    const groups = ['property_type', 'rooms', 'bathrooms', 'condition', 'features', 'rules', 'environment', 'metro_minutes', 'notification_type'];
+    groups.forEach(group => {
+        const val = params.get(group);
+        if (val) {
+            const values = val.split(',');
+            // Map property_type back to ids if needed, but here group names match id for some 
+            const groupId = group.replace('_type', '-type').replace('_minutes', '-distance');
+            values.forEach(v => {
+                const pill = document.querySelector(`#${groupId} .pill[data-value="${v}"]`);
+                if (pill) {
+                    if (groupId === 'metro-distance' || groupId === 'notification-type') {
+                        selectOnePill(pill, groupId);
+                    } else {
+                        pill.classList.add('selected');
+                    }
+                }
+            });
+        }
+    });
+}
+
+loadFiltersFromUrl();
