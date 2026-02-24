@@ -13,33 +13,31 @@
     <div id="main-container">
         <!-- TABS -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('search')">🔍 Поиск</button>
-            <button class="tab-btn" onclick="switchTab('results')">🏠 Объявления</button>
-            <button class="tab-btn" onclick="switchTab('map')">🗺 Карта</button>
+            <button class="tab-btn active" onclick="switchTab('search')" data-i18n="tab_search">🔍 Поиск</button>
+            <button class="tab-btn" onclick="switchTab('results')" data-i18n="tab_results">🏠 Объявления</button>
+            <button class="tab-btn" onclick="switchTab('map')" data-i18n="tab_map">🗺 Карта</button>
         </div>
 
         <!-- SEARCH TAB -->
         <div id="tab-search" class="tab-content active">
-            <h2>Настройки поиска</h2>
+            <h2 data-i18n="title_search">Настройки поиска</h2>
 
             <!-- 1. Тип жилья -->
             <div class="form-group">
-                <label>Тип жилья</label>
+                <label data-i18n="label_property_type">Тип жилья</label>
                 <div class="pill-group" id="property-type">
-                    <div class="pill" data-value="flat" onclick="togglePill(this, 'property-type')">Квартира</div>
-                    <div class="pill" data-value="room" onclick="togglePill(this, 'property-type')">Комната</div>
-                    <div class="pill" data-value="house" onclick="togglePill(this, 'property-type')">Дома и коттеджи
-                    </div>
-                    <div class="pill" data-value="penthouse_duplex" onclick="togglePill(this, 'property-type')">Пентхаус
-                        / Дуплекс</div>
+                    <div class="pill" data-value="flat" onclick="togglePill(this, 'property-type')" data-i18n="prop_flat">Квартира</div>
+                    <div class="pill" data-value="room" onclick="togglePill(this, 'property-type')" data-i18n="prop_room">Комната</div>
+                    <div class="pill" data-value="house" onclick="togglePill(this, 'property-type')" data-i18n="prop_house">Дома и коттеджи</div>
+                    <div class="pill" data-value="penthouse_duplex" onclick="togglePill(this, 'property-type')" data-i18n="prop_penthouse">Пентхаус / Дуплекс</div>
                 </div>
             </div>
 
             <!-- 2. Количество комнат -->
             <div class="form-group">
-                <label>Количество комнат</label>
+                <label data-i18n="label_rooms">Количество комнат</label>
                 <div class="pill-group" id="rooms">
-                    <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')">Студия</div>
+                    <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')" data-i18n="room_studio">Студия</div>
                     <div class="pill" data-value="T1" onclick="togglePill(this, 'rooms')">1</div>
                     <div class="pill" data-value="T2" onclick="togglePill(this, 'rooms')">2</div>
                     <div class="pill" data-value="T3" onclick="togglePill(this, 'rooms')">3</div>
@@ -49,7 +47,7 @@
 
             <!-- 3. Сан. узлы -->
             <div class="form-group">
-                <label>Сан. узлы</label>
+                <label data-i18n="label_bathrooms">Сан. узлы</label>
                 <div class="pill-group" id="bathrooms">
                     <div class="pill" data-value="1" onclick="togglePill(this, 'bathrooms')">1</div>
                     <div class="pill" data-value="2" onclick="togglePill(this, 'bathrooms')">2</div>
@@ -59,77 +57,77 @@
 
             <!-- 4. Цена -->
             <div class="form-group">
-                <label>Цена (€/мес)</label>
+                <label data-i18n="label_price">Цена (€/мес)</label>
                 <div class="range-inputs">
-                    <input type="number" id="price-min" placeholder="От">
-                    <input type="number" id="price-max" placeholder="До">
+                    <input type="number" id="price-min" placeholder="От" data-i18n="placeholder_from">
+                    <input type="number" id="price-max" placeholder="До" data-i18n="placeholder_to">
                 </div>
             </div>
 
             <!-- 5. Площадь -->
             <div class="form-group">
-                <label>Площадь (м²)</label>
+                <label data-i18n="label_area">Площадь (м²)</label>
                 <div class="range-inputs">
-                    <input type="number" id="area-min" placeholder="От">
-                    <input type="number" id="area-max" placeholder="До">
+                    <input type="number" id="area-min" placeholder="От" data-i18n="placeholder_from">
+                    <input type="number" id="area-max" placeholder="До" data-i18n="placeholder_to">
                 </div>
             </div>
 
             <!-- 6. Этаж -->
             <div class="form-group">
-                <label>Этаж</label>
+                <label data-i18n="label_floor">Этаж</label>
                 <div class="range-inputs" style="margin-bottom: 8px;">
-                    <input type="number" id="floor-min" placeholder="От">
-                    <input type="number" id="floor-max" placeholder="До">
+                    <input type="number" id="floor-min" placeholder="От" data-i18n="placeholder_from">
+                    <input type="number" id="floor-max" placeholder="До" data-i18n="placeholder_to">
                 </div>
                 <div class="pill-group" id="floor">
-                    <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')">Не первый</div>
-                    <div class="pill" data-value="not_last" onclick="togglePill(this, 'floor')">Не последний</div>
-                    <div class="pill" data-value="only_last" onclick="togglePill(this, 'floor')">Только последний</div>
+                    <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')" data-i18n="floor_not_first">Не первый</div>
+                    <div class="pill" data-value="not_last" onclick="togglePill(this, 'floor')" data-i18n="floor_not_last">Не последний</div>
+                    <div class="pill" data-value="only_last" onclick="togglePill(this, 'floor')" data-i18n="floor_only_last">Только последний</div>
                 </div>
             </div>
 
             <!-- 7. Состояние -->
             <div class="form-group">
-                <label>Состояние</label>
+                <label data-i18n="label_condition">Состояние</label>
                 <div class="pill-group" id="condition">
-                    <div class="pill" data-value="new" onclick="togglePill(this, 'condition')">Новостройка</div>
-                    <div class="pill" data-value="good" onclick="togglePill(this, 'condition')">Хорошее состояние</div>
-                    <div class="pill" data-value="renovation" onclick="togglePill(this, 'condition')">Нужен ремонт</div>
+                    <div class="pill" data-value="new" onclick="togglePill(this, 'condition')" data-i18n="cond_new">Новостройка</div>
+                    <div class="pill" data-value="good" onclick="togglePill(this, 'condition')" data-i18n="cond_good">Хорошее состояние</div>
+                    <div class="pill" data-value="renovation" onclick="togglePill(this, 'condition')" data-i18n="cond_renovation">Нужен ремонт</div>
                 </div>
             </div>
 
             <!-- 8. Характеристики -->
             <div class="form-group">
-                <label>Характеристики</label>
+                <label data-i18n="label_features">Характеристики</label>
                 <div class="pill-group" id="features">
-                    <div class="pill" data-value="ac" onclick="togglePill(this, 'features')">Кондиционер</div>
-                    <div class="pill" data-value="lift" onclick="togglePill(this, 'features')">Лифт</div>
-                    <div class="pill" data-value="garage" onclick="togglePill(this, 'features')">Гараж</div>
-                    <div class="pill" data-value="garden" onclick="togglePill(this, 'features')">Сад</div>
-                    <div class="pill" data-value="pool" onclick="togglePill(this, 'features')">Бассейн</div>
-                    <div class="pill" data-value="balcony" onclick="togglePill(this, 'features')">Балкон / терраса</div>
+                    <div class="pill" data-value="ac" onclick="togglePill(this, 'features')" data-i18n="feat_ac">Кондиционер</div>
+                    <div class="pill" data-value="lift" onclick="togglePill(this, 'features')" data-i18n="feat_lift">Лифт</div>
+                    <div class="pill" data-value="garage" onclick="togglePill(this, 'features')" data-i18n="feat_garage">Гараж</div>
+                    <div class="pill" data-value="garden" onclick="togglePill(this, 'features')" data-i18n="feat_garden">Сад</div>
+                    <div class="pill" data-value="pool" onclick="togglePill(this, 'features')" data-i18n="feat_pool">Бассейн</div>
+                    <div class="pill" data-value="balcony" onclick="togglePill(this, 'features')" data-i18n="feat_balcony">Балкон / терраса</div>
                 </div>
             </div>
 
             <!-- 9. Комиссия -->
             <div class="form-group">
-                <label>Комиссия агента</label>
+                <label data-i18n="label_commission">Комиссия агента</label>
                 <label class="toggle-switch">
                     <input type="checkbox" id="no-commission">
                     <span class="slider"></span>
-                    <span class="label-text">Без комиссии</span>
+                    <span class="label-text" data-i18n="commission_no">Без комиссии</span>
                 </label>
             </div>
 
             <!-- 10. Кто будет жить -->
             <div class="form-group">
-                <label>Кто будет жить</label>
+                <label data-i18n="label_occupancy">Кто будет жить</label>
                 <div class="pill-group" id="rules">
-                    <div class="pill" data-value="kids" onclick="togglePill(this, 'rules')">Можно с детьми</div>
-                    <div class="pill" data-value="pets" onclick="togglePill(this, 'rules')">Можно с животными</div>
+                    <div class="pill" data-value="kids" onclick="togglePill(this, 'rules')" data-i18n="rule_kids">Можно с детьми</div>
+                    <div class="pill" data-value="pets" onclick="togglePill(this, 'rules')" data-i18n="rule_pets">Можно с животными</div>
                 </div>
-                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 8px; line-height: 1.4;">
+                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 8px; line-height: 1.4;" data-i18n="hint_occupancy">
                     Я фильтрую только те объявления, где запрет прописан прямо в тексте описания – с такими хозяевами
                     малореально договориться. Но если запрет указан только в параметрах объявления, а в тексте ничего
                     нет, то стоит пробовать. В хороших квартирах часто запрещают животных и детей по умолчанию, не
@@ -139,54 +137,50 @@
             </div>
 
             <!-- 11. Регион -->
-            <h3>📍 Расположение</h3>
+            <h3 data-i18n="title_location">📍 Расположение</h3>
             <div class="form-group">
-                <label>Регион</label>
+                <label data-i18n="label_region">Регион</label>
                 <select id="region-select">
-                    <option value="lisbon">Лиссабон</option>
-                    <option value="porto" disabled>Порту (скоро)</option>
+                    <option value="lisbon" data-i18n="option_lisbon">Лиссабон</option>
+                    <option value="porto" disabled data-i18n="option_porto">Порту (скоро)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <button class="action-btn" onclick="openMapDraw()">🗺 Нарисовать область на карте</button>
+                <button class="action-btn" onclick="openMapDraw()" data-i18n="btn_map">🗺 Нарисовать область на карте</button>
             </div>
 
             <!-- 12. Время до метро -->
             <div class="form-group">
-                <label>Время до метро</label>
+                <label data-i18n="label_metro">Время до метро</label>
                 <div class="pill-group" id="metro-distance">
-                    <div class="pill" data-value="5" onclick="selectOnePill(this, 'metro-distance')">до 5 мин</div>
-                    <div class="pill" data-value="10" onclick="selectOnePill(this, 'metro-distance')">до 10 мин</div>
-                    <div class="pill" data-value="15" onclick="selectOnePill(this, 'metro-distance')">до 15 мин</div>
-                    <div class="pill" data-value="20" onclick="selectOnePill(this, 'metro-distance')">до 20 мин</div>
-                    <div class="pill" data-value="25" onclick="selectOnePill(this, 'metro-distance')">до 25 мин</div>
-                    <div class="pill" data-value="30" onclick="selectOnePill(this, 'metro-distance')">до 30 мин</div>
-                    <div class="pill selected" data-value="any" onclick="selectOnePill(this, 'metro-distance')">Не важно
-                    </div>
+                    <div class="pill" data-value="5" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_5">до 5 мин</div>
+                    <div class="pill" data-value="10" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_10">до 10 мин</div>
+                    <div class="pill" data-value="15" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_15">до 15 мин</div>
+                    <div class="pill" data-value="20" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_20">до 20 мин</div>
+                    <div class="pill" data-value="25" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_25">до 25 мин</div>
+                    <div class="pill" data-value="30" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_30">до 30 мин</div>
+                    <div class="pill selected" data-value="any" onclick="selectOnePill(this, 'metro-distance')" data-i18n="metro_any">Не важно</div>
                 </div>
             </div>
 
             <!-- 13. Окружение -->
             <div class="form-group">
-                <label>Окружение</label>
+                <label data-i18n="label_environment">Окружение</label>
                 <div class="pill-group" id="environment">
-                    <div class="pill" data-value="park" onclick="togglePill(this, 'environment')">Парк рядом</div>
-                    <div class="pill" data-value="quiet" onclick="togglePill(this, 'environment')">Без шумных дорог
-                        рядом</div>
+                    <div class="pill" data-value="park" onclick="togglePill(this, 'environment')" data-i18n="env_park">Парк рядом</div>
+                    <div class="pill" data-value="quiet" onclick="togglePill(this, 'environment')" data-i18n="env_quiet">Без шумных дорог рядом</div>
                 </div>
             </div>
 
             <!-- 14. Уведомления -->
-            <h3>🔔 Уведомления</h3>
+            <h3 data-i18n="title_notifications">🔔 Уведомления</h3>
             <div class="form-group">
                 <div class="pill-group" id="notification-type">
-                    <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')">Все подходящие
-                    </div>
-                    <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')">
-                        Только новые</div>
+                    <div class="pill" data-value="all" onclick="selectOnePill(this, 'notification-type')" data-i18n="notify_all">Все подходящие</div>
+                    <div class="pill selected" data-value="new" onclick="selectOnePill(this, 'notification-type')" data-i18n="notify_new">Только новые</div>
                 </div>
-                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 5px; line-height: 1.4;">
+                <p class="hint-text" style="font-size: 12px; color: #888; margin-top: 5px; line-height: 1.4;" data-i18n="hint_notifications">
                     Выберите опцию «Все подходящие», чтобы сразу увидеть все объявления, соответствующие вашим фильтрам.
                     После этого вы будете получать уведомления о новых публикациях. Если выбрать «Только новые»,
                     уведомления будут приходить только об объявлениях, опубликованных после запуска бота.
@@ -198,13 +192,13 @@
         <!-- RESULTS TAB -->
         <div id="tab-results" class="tab-content">
             <div id="ads-container">
-                <div class="loading-spinner">Загрузка...</div>
+                <div class="loading-spinner" data-i18n="loading">Загрузка...</div>
             </div>
         </div>
 
         <!-- MAP TAB -->
         <div id="tab-map" class="tab-content">
-            <div id="map-container" style="height: 400px; background: #eee;">
+            <div id="map-container" style="height: 400px; background: #eee;" data-i18n="map_placeholder">
                 Map will be here
             </div>
         </div>
