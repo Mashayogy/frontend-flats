@@ -76,7 +76,8 @@ const TRANSLATIONS = {
         btn_close: "Закрыть",
         loading: "Загрузка...",
         map_placeholder: "Карта будет здесь",
-        alert_map: "Функция рисования на карте (Polygon) пока в разработке!"
+        alert_map: "Функция рисования на карте (Polygon) пока в разработке!",
+        map_hint: "Используйте инструмент многоугольника (⬟) слева на карте, чтобы выделить нужные области. Вы можете нарисовать несколько областей."
     },
     en: {
         tab_search: "🔍 Search",
@@ -141,7 +142,8 @@ const TRANSLATIONS = {
         btn_close: "Close",
         loading: "Loading...",
         map_placeholder: "Map will be here",
-        alert_map: "Drawing area on map (Polygon) is still in development!"
+        alert_map: "Drawing area on map (Polygon) is still in development!",
+        map_hint: "Use the polygon tool (⬟) on the left of the map to draw areas. You can draw multiple areas."
     },
     pt: {
         tab_search: "🔍 Busca",
@@ -206,7 +208,8 @@ const TRANSLATIONS = {
         btn_close: "Fechar",
         loading: "A carregar...",
         map_placeholder: "O mapa estará aqui",
-        alert_map: "A função de desenhar no mapa (Polígono) está em desenvolvimento!"
+        alert_map: "A função de desenhar no mapa (Polígono) está em desenvolvimento!",
+        map_hint: "Use a ferramenta polígono (⬟) à esquerda no mapa para desenhar áreas. Pode desenhar várias áreas."
     },
     es: {
         tab_search: "🔍 Búsqueda",
@@ -271,11 +274,21 @@ const TRANSLATIONS = {
         btn_close: "Cerrar",
         loading: "Cargando...",
         map_placeholder: "El mapa estará aquí",
-        alert_map: "¡La función de dibujar en el mapa (Polígono) está en desarrollo!"
+        alert_map: "¡La función de dibujar en el mapa (Polígono) está en desarrollo!",
+        map_hint: "Usa la herramienta polígono (⬟) a la izquierda en el mapa para dibujar áreas. Puedes dibujar múltiples áreas."
     }
 };
 
 let currentLang = 'ru';
+let map = null;
+let drawnItems = null;
+
+const REGION_COORDS = {
+    lisbon: [38.7223, -9.1393],
+    porto: [41.1579, -8.6291]
+};
+
+window.pendingPolygons = [];
 
 function translateUI() {
     const params = new URLSearchParams(window.location.search);
@@ -314,7 +327,12 @@ function switchTab(tabName) {
     const btns = document.querySelectorAll('.tab-btn');
     if (tabName === 'search') btns[0].classList.add('active');
     if (tabName === 'results') btns[1].classList.add('active');
-    if (tabName === 'map') btns[2].classList.add('active');
+    if (tabName === 'map') {
+        btns[2].classList.add('active');
+        setTimeout(() => {
+            if (typeof initMapIfNeeded === 'function') initMapIfNeeded();
+        }, 100);
+    }
 
     // Button text logic
     const mainBtn = document.getElementById('main-btn');
@@ -369,12 +387,96 @@ function updateDynamicUI() {
 }
 
 function openMapDraw() {
-    const t = TRANSLATIONS[currentLang];
-    alert(t.alert_map);
+    switchTab('map');
+}
+
+function initMapIfNeeded() {
+    if (map) {
+        map.invalidateSize();
+        return;
+    }
+
+    const region = document.getElementById('region-select').value || 'lisbon';
+    const coords = REGION_COORDS[region] || REGION_COORDS.lisbon;
+
+    map = L.map('map-container').setView(coords, 12);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
+
+    drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    const drawControl = new L.Control.Draw({
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                drawError: {
+                    color: '#e1e100',
+                    message: '<strong>Error:</strong> shape edges cannot cross!'
+                },
+                shapeOptions: {
+                    color: '#007aff'
+                }
+            },
+            polyline: false,
+            rectangle: false,
+            circle: false,
+            marker: false,
+            circlemarker: false
+        },
+        edit: {
+            featureGroup: drawnItems,
+            remove: true
+        }
+    });
+    map.addControl(drawControl);
+
+    map.on(L.Draw.Event.CREATED, function (e) {
+        const type = e.layerType;
+        const layer = e.layer;
+
+        if (type === 'polygon') {
+            drawnItems.addLayer(layer);
+        }
+    });
+
+    if (window.pendingPolygons && window.pendingPolygons.length > 0) {
+        window.pendingPolygons.forEach(polyCoords => {
+            const polygon = L.polygon(polyCoords, { color: '#007aff' });
+            drawnItems.addLayer(polygon);
+        });
+        window.pendingPolygons = [];
+
+        if (drawnItems.getLayers().length > 0) {
+            map.fitBounds(drawnItems.getBounds());
+        }
+    }
+}
+
+function changeRegion() {
+    const region = document.getElementById('region-select').value;
+    if (map && REGION_COORDS[region]) {
+        map.setView(REGION_COORDS[region], 12);
+        drawnItems.clearLayers();
+    }
 }
 
 // Send Data Back
 function sendData() {
+    const polygons = [];
+    if (drawnItems) {
+        drawnItems.eachLayer(function (layer) {
+            if (layer instanceof L.Polygon) {
+                const latlngs = layer.getLatLngs()[0]; // Outer ring
+                polygons.push(latlngs.map(ll => [ll.lat, ll.lng]));
+            }
+        });
+    }
+
     // Collect data
     const data = {
         action: "save_filters",
@@ -401,7 +503,9 @@ function sendData() {
         rules: getSelectedValues('rules'),
         environment: getSelectedValues('environment'),
         notification_type: getSelectedValues('notification-type')[0] || 'new',
-        language: currentLang
+        language: currentLang,
+        polygons: polygons,
+        region: document.getElementById('region-select').value
     };
 
     tg.sendData(JSON.stringify(data));
@@ -457,6 +561,20 @@ function loadFiltersFromUrl() {
             });
         }
     });
+
+    const polyParam = params.get('polygons');
+    if (polyParam) {
+        try {
+            window.pendingPolygons = JSON.parse(decodeURIComponent(polyParam));
+        } catch (e) {
+            console.error("Failed to parse polygons from URL", e);
+        }
+    }
+
+    const regionParam = params.get('region');
+    if (regionParam && document.getElementById('region-select').querySelector(`option[value="${regionParam}"]`)) {
+        document.getElementById('region-select').value = regionParam;
+    }
 }
 
 // Initial call
