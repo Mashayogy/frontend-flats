@@ -50,6 +50,16 @@
                 </div>
             </div>
 
+            <!-- 2.5 Количество человек в комнате -->
+            <div class="form-group" id="group-people-in-room" style="display: none;">
+                <label data-i18n="label_people_in_room">Количество человек в комнате</label>
+                <div class="pill-group" id="people-in-room">
+                    <div class="pill" data-value="1" onclick="togglePill(this, 'people-in-room')">1</div>
+                    <div class="pill" data-value="2" onclick="togglePill(this, 'people-in-room')">2</div>
+                    <div class="pill" data-value="3" onclick="togglePill(this, 'people-in-room')">3</div>
+                </div>
+            </div>
+
             <!-- 3. Сан. узлы -->
             <div class="form-group">
                 <label data-i18n="label_bathrooms">Сан. узлы</label>
@@ -77,6 +87,15 @@
                 <div class="range-inputs">
                     <input type="number" id="area-min" placeholder="От" data-i18n="placeholder_from">
                     <input type="number" id="area-max" placeholder="До" data-i18n="placeholder_to">
+                </div>
+            </div>
+
+            <!-- 5.5 Площадь участка (hidden by default) -->
+            <div class="form-group" id="group-plot-area" style="display: none;">
+                <label data-i18n="label_plot_area">Площадь участка (м²)</label>
+                <div class="range-inputs">
+                    <input type="number" id="plot-area-min" placeholder="От" data-i18n="placeholder_from">
+                    <input type="number" id="plot-area-max" placeholder="До" data-i18n="placeholder_to">
                 </div>
             </div>
 
