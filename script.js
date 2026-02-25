@@ -334,36 +334,29 @@ function selectOnePill(el, groupName) {
 
 function updateDynamicUI() {
     const selectedTypes = getSelectedValues('property-type');
+    const noTypeSelected = selectedTypes.length === 0;
 
-    const isRoomSelected = selectedTypes.includes('room');
-    if (isRoomSelected) {
-        document.getElementById('group-rooms').style.display = 'none';
-        document.getElementById('group-people-in-room').style.display = 'block';
-    } else {
-        document.getElementById('group-rooms').style.display = 'block';
-        document.getElementById('group-people-in-room').style.display = 'none';
-    }
+    const showRooms = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('house') || selectedTypes.includes('penthouse_duplex');
+    const showPeopleInRoom = selectedTypes.includes('room');
 
-    const isHouseSelected = selectedTypes.includes('house');
-    const isPenthouseDuplexSelected = selectedTypes.includes('penthouse_duplex');
-    const isHouseOrPenthouse = isHouseSelected || isPenthouseDuplexSelected;
+    document.getElementById('group-rooms').style.display = showRooms ? 'block' : 'none';
+    document.getElementById('group-people-in-room').style.display = showPeopleInRoom ? 'block' : 'none';
 
+    const showFloor = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room') || selectedTypes.includes('penthouse_duplex');
+    const showPlotArea = selectedTypes.includes('house');
+
+    document.getElementById('group-floor').style.display = showFloor ? 'block' : 'none';
+    document.getElementById('group-plot-area').style.display = showPlotArea ? 'block' : 'none';
+
+    const showLift = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room');
     const liftPill = document.querySelector('.pill[data-value="lift"]');
     if (liftPill) {
-        if (isHouseOrPenthouse) {
+        if (showLift) {
+            liftPill.style.display = 'inline-block';
+        } else {
             liftPill.style.display = 'none';
             liftPill.classList.remove('selected');
-        } else {
-            liftPill.style.display = 'inline-block';
         }
-    }
-
-    if (isHouseSelected) {
-        document.getElementById('group-floor').style.display = 'none';
-        document.getElementById('group-plot-area').style.display = 'block';
-    } else {
-        document.getElementById('group-floor').style.display = 'block';
-        document.getElementById('group-plot-area').style.display = 'none';
     }
 }
 
