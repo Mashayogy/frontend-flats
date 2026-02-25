@@ -31,20 +31,19 @@ const TRANSLATIONS = {
         placeholder_to: "До",
         label_area: "Площадь (м²)",
         label_floor: "Этаж",
-        floor_not_first: "Не первый",
-        floor_not_last: "Не последний",
-        floor_only_last: "Только последний",
         label_condition: "Состояние",
         cond_new: "Новостройка",
         cond_good: "Хорошее состояние",
         cond_renovation: "Нужен ремонт",
         label_features: "Характеристики",
+        feat_furniture: "Мебель",
         feat_ac: "Кондиционер",
         feat_lift: "Лифт",
         feat_garage: "Гараж",
         feat_garden: "Сад",
         feat_pool: "Бассейн",
-        feat_balcony: "Балкон / терраса",
+        feat_balcony: "Балкон",
+        feat_terrace: "Терраса",
         label_commission: "Комиссия агента",
         commission_no: "Без комиссии",
         label_occupancy: "Кто будет жить",
@@ -95,20 +94,19 @@ const TRANSLATIONS = {
         placeholder_to: "Max",
         label_area: "Area (m²)",
         label_floor: "Floor",
-        floor_not_first: "Not first",
-        floor_not_last: "Not last",
-        floor_only_last: "Only last",
         label_condition: "Condition",
         cond_new: "New building",
         cond_good: "Good condition",
         cond_renovation: "Needs renovation",
         label_features: "Features",
+        feat_furniture: "Furniture",
         feat_ac: "Air conditioning",
         feat_lift: "Lift",
         feat_garage: "Garage",
         feat_garden: "Garden",
         feat_pool: "Pool",
-        feat_balcony: "Balcony / terrace",
+        feat_balcony: "Balcony",
+        feat_terrace: "Terrace",
         label_commission: "Agent commission",
         commission_no: "No commission",
         label_occupancy: "Who will live",
@@ -159,20 +157,19 @@ const TRANSLATIONS = {
         placeholder_to: "Até",
         label_area: "Área (m²)",
         label_floor: "Andar",
-        floor_not_first: "Não rés-do-chão",
-        floor_not_last: "Não último",
-        floor_only_last: "Apenas último",
         label_condition: "Estado",
         cond_new: "Novo",
         cond_good: "Bom estado",
         cond_renovation: "Para recuperar",
         label_features: "Características",
+        feat_furniture: "Mobília",
         feat_ac: "Ar condicionado",
         feat_lift: "Elevador",
         feat_garage: "Garagem",
         feat_garden: "Jardim",
         feat_pool: "Piscina",
-        feat_balcony: "Varanda / terraço",
+        feat_balcony: "Varanda",
+        feat_terrace: "Terraço",
         label_commission: "Comissão de agência",
         commission_no: "Sem comissão",
         label_occupancy: "Quem vai morar",
@@ -223,20 +220,19 @@ const TRANSLATIONS = {
         placeholder_to: "Hasta",
         label_area: "Superficie (m²)",
         label_floor: "Planta",
-        floor_not_first: "No bajo",
-        floor_not_last: "No último",
-        floor_only_last: "Solo último",
         label_condition: "Estado",
         cond_new: "Obra nueva",
         cond_good: "Buen estado",
         cond_renovation: "A reformar",
         label_features: "Características",
+        feat_furniture: "Amueblado",
         feat_ac: "Aire acondicionado",
         feat_lift: "Ascensor",
         feat_garage: "Garaje",
         feat_garden: "Jardín",
         feat_pool: "Piscina",
-        feat_balcony: "Balcón / terraza",
+        feat_balcony: "Balcón",
+        feat_terrace: "Terraza",
         label_commission: "Comisión de agencia",
         commission_no: "Sin comisión",
         label_occupancy: "Quién va a vivir",
@@ -326,12 +322,49 @@ function switchTab(tabName) {
 // Pill Logic (Multi-select)
 function togglePill(el, groupName) {
     el.classList.toggle('selected');
+    updateDynamicUI();
 }
 
 // Single Select Logic
 function selectOnePill(el, groupName) {
     document.querySelectorAll(`#${groupName} .pill`).forEach(p => p.classList.remove('selected'));
     el.classList.add('selected');
+    updateDynamicUI();
+}
+
+function updateDynamicUI() {
+    const selectedTypes = getSelectedValues('property-type');
+
+    const isRoomSelected = selectedTypes.includes('room');
+    if (isRoomSelected) {
+        document.getElementById('group-rooms').style.display = 'none';
+        document.getElementById('group-people-in-room').style.display = 'block';
+    } else {
+        document.getElementById('group-rooms').style.display = 'block';
+        document.getElementById('group-people-in-room').style.display = 'none';
+    }
+
+    const isHouseSelected = selectedTypes.includes('house');
+    const isPenthouseDuplexSelected = selectedTypes.includes('penthouse_duplex');
+    const isHouseOrPenthouse = isHouseSelected || isPenthouseDuplexSelected;
+
+    const liftPill = document.querySelector('.pill[data-value="lift"]');
+    if (liftPill) {
+        if (isHouseOrPenthouse) {
+            liftPill.style.display = 'none';
+            liftPill.classList.remove('selected');
+        } else {
+            liftPill.style.display = 'inline-block';
+        }
+    }
+
+    if (isHouseSelected) {
+        document.getElementById('group-floor').style.display = 'none';
+        document.getElementById('group-plot-area').style.display = 'block';
+    } else {
+        document.getElementById('group-floor').style.display = 'block';
+        document.getElementById('group-plot-area').style.display = 'none';
+    }
 }
 
 function openMapDraw() {
@@ -348,6 +381,8 @@ function sendData() {
         max_price: document.getElementById('price-max').value,
         min_area: document.getElementById('area-min').value,
         max_area: document.getElementById('area-max').value,
+        min_plot_area: document.getElementById('plot-area-min').value,
+        max_plot_area: document.getElementById('plot-area-max').value,
 
         min_floor: document.getElementById('floor-min').value,
         max_floor: document.getElementById('floor-max').value,
@@ -358,10 +393,10 @@ function sendData() {
 
         property_types: getSelectedValues('property-type'),
         rooms: getSelectedValues('rooms'),
+        people_in_room: getSelectedValues('people-in-room'),
         bathrooms: getSelectedValues('bathrooms'),
         condition: getSelectedValues('condition'),
         features: getSelectedValues('features'),
-        floors: getSelectedValues('floor'),
         rules: getSelectedValues('rules'),
         environment: getSelectedValues('environment'),
         notification_type: getSelectedValues('notification-type')[0] || 'new',
@@ -386,6 +421,8 @@ function loadFiltersFromUrl() {
         'max_price': 'price-max',
         'min_area': 'area-min',
         'max_area': 'area-max',
+        'min_plot_area': 'plot-area-min',
+        'max_plot_area': 'plot-area-max',
         'min_floor': 'floor-min',
         'max_floor': 'floor-max'
     };
@@ -401,12 +438,12 @@ function loadFiltersFromUrl() {
     }
 
     // 3. Multi-select Pills
-    const groups = ['property_type', 'rooms', 'bathrooms', 'condition', 'features', 'rules', 'environment', 'metro_minutes', 'notification_type'];
+    const groups = ['property_type', 'rooms', 'people_in_room', 'bathrooms', 'condition', 'features', 'rules', 'environment', 'metro_minutes', 'notification_type'];
     groups.forEach(group => {
         const val = params.get(group);
         if (val) {
             const values = val.split(',');
-            const groupId = group.replace('_type', '-type').replace('_minutes', '-distance');
+            const groupId = group.replace('_type', '-type').replace('_minutes', '-distance').replace('_in_room', '-in-room');
             values.forEach(v => {
                 const pill = document.querySelector(`#${groupId} .pill[data-value="${v}"]`);
                 if (pill) {
@@ -424,3 +461,4 @@ function loadFiltersFromUrl() {
 // Initial call
 translateUI();
 loadFiltersFromUrl();
+updateDynamicUI();
