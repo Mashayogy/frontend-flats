@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Flats Alerts Portugal</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -183,9 +187,9 @@
             <h3 data-i18n="title_location">📍 Расположение</h3>
             <div class="form-group">
                 <label data-i18n="label_region">Регион</label>
-                <select id="region-select">
+                <select id="region-select" onchange="changeRegion()">
                     <option value="lisbon" data-i18n="option_lisbon">Лиссабон</option>
-                    <option value="porto" disabled data-i18n="option_porto">Порту (скоро)</option>
+                    <option value="porto" data-i18n="option_porto">Порту</option>
                 </select>
             </div>
 
@@ -254,9 +258,13 @@
 
         <!-- MAP TAB -->
         <div id="tab-map" class="tab-content">
-            <div id="map-container" style="height: 400px; background: #eee;" data-i18n="map_placeholder">
-                Map will be here
+            <div style="margin-bottom: 15px;">
+                <p data-i18n="map_hint" style="font-size: 14px; margin: 0; color: var(--tg-theme-text-color);">
+                    Используйте инструмент многоугольника (⬟) слева на карте, чтобы выделить нужные области. Вы можете
+                    нарисовать несколько областей.</p>
             </div>
+            <div id="map-container"
+                style="height: 400px; background: #eee; width: 100%; border-radius: 8px; z-index: 1;"></div>
         </div>
     </div>
 
