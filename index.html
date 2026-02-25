@@ -38,7 +38,7 @@
             </div>
 
             <!-- 2. Количество комнат -->
-            <div class="form-group">
+            <div class="form-group" id="group-rooms">
                 <label data-i18n="label_rooms">Количество комнат</label>
                 <div class="pill-group" id="rooms">
                     <div class="pill" data-value="T0" onclick="togglePill(this, 'rooms')" data-i18n="room_studio">Студия
@@ -47,6 +47,16 @@
                     <div class="pill" data-value="T2" onclick="togglePill(this, 'rooms')">2</div>
                     <div class="pill" data-value="T3" onclick="togglePill(this, 'rooms')">3</div>
                     <div class="pill" data-value="T4+" onclick="togglePill(this, 'rooms')">4+</div>
+                </div>
+            </div>
+
+            <!-- 2.5 Количество человек в комнате -->
+            <div class="form-group" id="group-people-in-room" style="display: none;">
+                <label data-i18n="label_people_in_room">Количество человек в комнате</label>
+                <div class="pill-group" id="people-in-room">
+                    <div class="pill" data-value="1" onclick="togglePill(this, 'people-in-room')">1</div>
+                    <div class="pill" data-value="2" onclick="togglePill(this, 'people-in-room')">2</div>
+                    <div class="pill" data-value="3" onclick="togglePill(this, 'people-in-room')">3</div>
                 </div>
             </div>
 
@@ -59,6 +69,8 @@
                     <div class="pill" data-value="3+" onclick="togglePill(this, 'bathrooms')">3+</div>
                 </div>
             </div>
+
+
 
             <!-- 4. Цена -->
             <div class="form-group">
@@ -78,20 +90,23 @@
                 </div>
             </div>
 
+            <!-- 5.5 Площадь участка (hidden by default) -->
+            <div class="form-group" id="group-plot-area" style="display: none;">
+                <label data-i18n="label_plot_area">Площадь участка (м²)</label>
+                <div class="range-inputs">
+                    <input type="number" id="plot-area-min" placeholder="От" data-i18n="placeholder_from">
+                    <input type="number" id="plot-area-max" placeholder="До" data-i18n="placeholder_to">
+                </div>
+            </div>
+
+
+
             <!-- 6. Этаж -->
-            <div class="form-group">
+            <div class="form-group" id="group-floor">
                 <label data-i18n="label_floor">Этаж</label>
                 <div class="range-inputs" style="margin-bottom: 8px;">
                     <input type="number" id="floor-min" placeholder="От" data-i18n="placeholder_from">
                     <input type="number" id="floor-max" placeholder="До" data-i18n="placeholder_to">
-                </div>
-                <div class="pill-group" id="floor">
-                    <div class="pill" data-value="not_first" onclick="togglePill(this, 'floor')"
-                        data-i18n="floor_not_first">Не первый</div>
-                    <div class="pill" data-value="not_last" onclick="togglePill(this, 'floor')"
-                        data-i18n="floor_not_last">Не последний</div>
-                    <div class="pill" data-value="only_last" onclick="togglePill(this, 'floor')"
-                        data-i18n="floor_only_last">Только последний</div>
                 </div>
             </div>
 
@@ -108,10 +123,14 @@
                 </div>
             </div>
 
+
+
             <!-- 8. Характеристики -->
             <div class="form-group">
                 <label data-i18n="label_features">Характеристики</label>
                 <div class="pill-group" id="features">
+                    <div class="pill" data-value="furniture" onclick="togglePill(this, 'features')"
+                        data-i18n="feat_furniture">Мебель</div>
                     <div class="pill" data-value="ac" onclick="togglePill(this, 'features')" data-i18n="feat_ac">
                         Кондиционер</div>
                     <div class="pill" data-value="lift" onclick="togglePill(this, 'features')" data-i18n="feat_lift">
@@ -123,7 +142,9 @@
                     <div class="pill" data-value="pool" onclick="togglePill(this, 'features')" data-i18n="feat_pool">
                         Бассейн</div>
                     <div class="pill" data-value="balcony" onclick="togglePill(this, 'features')"
-                        data-i18n="feat_balcony">Балкон / терраса</div>
+                        data-i18n="feat_balcony">Балкон</div>
+                    <div class="pill" data-value="terrace" onclick="togglePill(this, 'features')"
+                        data-i18n="feat_terrace">Терраса</div>
                 </div>
             </div>
 
@@ -136,6 +157,8 @@
                     <span class="label-text" data-i18n="commission_no">Без комиссии</span>
                 </label>
             </div>
+
+
 
             <!-- 10. Кто будет жить -->
             <div class="form-group">
