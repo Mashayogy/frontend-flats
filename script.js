@@ -336,7 +336,7 @@ function switchTab(tabName) {
 
     // Button text logic
     const mainBtn = document.getElementById('main-btn');
-    if (tabName === 'search') {
+    if (tabName === 'search' || tabName === 'map') {
         mainBtn.innerText = t.btn_save;
         mainBtn.onclick = sendData;
     } else {
