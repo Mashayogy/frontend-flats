@@ -33,6 +33,7 @@ const TRANSLATIONS = {
         label_area: "Площадь (м²)",
         label_plot_area: "Площадь участка (м²)",
         label_floor: "Этаж",
+        label_floors_count: "Этажность (кол-во этажей)",
         label_condition: "Состояние",
         cond_new: "Новостройка",
         cond_good: "Хорошее состояние",
@@ -99,6 +100,7 @@ const TRANSLATIONS = {
         label_area: "Area (m²)",
         label_plot_area: "Plot Area (m²)",
         label_floor: "Floor",
+        label_floors_count: "Number of floors",
         label_condition: "Condition",
         cond_new: "New building",
         cond_good: "Good condition",
@@ -165,6 +167,7 @@ const TRANSLATIONS = {
         label_area: "Área (m²)",
         label_plot_area: "Área do Lote (m²)",
         label_floor: "Andar",
+        label_floors_count: "Número de andares",
         label_condition: "Estado",
         cond_new: "Novo",
         cond_good: "Bom estado",
@@ -231,6 +234,7 @@ const TRANSLATIONS = {
         label_area: "Superficie (m²)",
         label_plot_area: "Tamaño de la Parcela (m²)",
         label_floor: "Planta",
+        label_floors_count: "Número de plantas",
         label_condition: "Estado",
         cond_new: "Obra nueva",
         cond_good: "Buen estado",
@@ -368,10 +372,12 @@ function updateDynamicUI() {
     document.getElementById('group-rooms').style.display = showRooms ? 'block' : 'none';
     document.getElementById('group-people-in-room').style.display = showPeopleInRoom ? 'block' : 'none';
 
-    const showFloor = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room') || selectedTypes.includes('penthouse_duplex');
+    const showFloor = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room');
+    const showFloorsCount = selectedTypes.includes('house') || selectedTypes.includes('penthouse_duplex');
     const showPlotArea = selectedTypes.includes('house');
 
     document.getElementById('group-floor').style.display = showFloor ? 'block' : 'none';
+    document.getElementById('group-floors-count').style.display = showFloorsCount ? 'block' : 'none';
     document.getElementById('group-plot-area').style.display = showPlotArea ? 'block' : 'none';
 
     const showLift = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room');
@@ -489,6 +495,8 @@ function sendData() {
 
         min_floor: document.getElementById('floor-min').value,
         max_floor: document.getElementById('floor-max').value,
+        min_floors_count: document.getElementById('floors-count-min').value,
+        max_floors_count: document.getElementById('floors-count-max').value,
 
         metro_minutes: getSelectedValues('metro-distance')[0] || 'any',
 
@@ -529,7 +537,9 @@ function loadFiltersFromUrl() {
         'min_plot_area': 'plot-area-min',
         'max_plot_area': 'plot-area-max',
         'min_floor': 'floor-min',
-        'max_floor': 'floor-max'
+        'max_floor': 'floor-max',
+        'min_floors_count': 'floors-count-min',
+        'max_floors_count': 'floors-count-max'
     };
     for (const [param, id] of Object.entries(inputs)) {
         if (params.has(param)) {
