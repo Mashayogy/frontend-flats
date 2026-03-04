@@ -175,3 +175,21 @@ input:checked+.slider:before {
     font-weight: bold;
     cursor: pointer;
 }
+
+/* METRO LABELS */
+.metro-label-tooltip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.metro-label {
+    font-size: 7px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+    text-shadow: 1px 1px 1px white, -1px -1px 1px white, 1px -1px 1px white, -1px 1px 1px white;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}

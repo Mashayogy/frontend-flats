@@ -441,7 +441,10 @@ function initMapIfNeeded() {
             });
             // Add a permanent static text label
             marker.bindTooltip(`
-                <span class="metro-label" style="color: ${station.color};">${station.name}</span>
+                <span class="metro-label">
+                    <span style="background: #E00034; color: white; font-weight: bold; padding: 0 3px; border-radius: 2px;">M</span>
+                    ${station.name}
+                </span>
             `, {
                 permanent: true,
                 direction: 'top',
