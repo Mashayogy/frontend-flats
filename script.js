@@ -372,6 +372,17 @@ function updateDynamicUI() {
     document.getElementById('group-rooms').style.display = showRooms ? 'block' : 'none';
     document.getElementById('group-people-in-room').style.display = showPeopleInRoom ? 'block' : 'none';
 
+    const showStudio = noTypeSelected || selectedTypes.includes('flat') || (!selectedTypes.includes('house') && !selectedTypes.includes('penthouse_duplex'));
+    const studioPill = document.querySelector('#rooms .pill[data-value="T0"]');
+    if (studioPill) {
+        if (showStudio) {
+            studioPill.style.display = 'inline-block';
+        } else {
+            studioPill.style.display = 'none';
+            studioPill.classList.remove('selected');
+        }
+    }
+
     const showFloor = noTypeSelected || selectedTypes.includes('flat') || selectedTypes.includes('room');
     const showFloorsCount = selectedTypes.includes('house') || selectedTypes.includes('penthouse_duplex');
     const showPlotArea = selectedTypes.includes('house');
@@ -415,6 +426,32 @@ function initMapIfNeeded() {
 
     drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
+
+    // Draw Metro Stations if available
+    if (typeof LISBON_METRO_STATIONS !== 'undefined') {
+        const metroLayer = L.layerGroup();
+        LISBON_METRO_STATIONS.forEach(station => {
+            const marker = L.circleMarker([station.lat, station.lng], {
+                radius: 4,
+                fillColor: station.color,
+                color: "#fff",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 1
+            });
+            // Add a permanent static text label
+            marker.bindTooltip(`
+                <span class="metro-label" style="color: ${station.color};">${station.name}</span>
+            `, {
+                permanent: true,
+                direction: 'top',
+                offset: [0, -2],
+                className: 'metro-label-tooltip'
+            });
+            metroLayer.addLayer(marker);
+        });
+        metroLayer.addTo(map);
+    }
 
     const drawControl = new L.Control.Draw({
         draw: {
@@ -473,14 +510,19 @@ function changeRegion() {
 
 // Send Data Back
 function sendData() {
+    console.log("sendData called");
     const polygons = [];
-    if (drawnItems) {
-        drawnItems.eachLayer(function (layer) {
-            if (layer instanceof L.Polygon) {
-                const latlngs = layer.getLatLngs()[0]; // Outer ring
-                polygons.push(latlngs.map(ll => [ll.lat, ll.lng]));
-            }
-        });
+    try {
+        if (typeof drawnItems !== 'undefined' && drawnItems) {
+            drawnItems.eachLayer(function (layer) {
+                if (layer instanceof L.Polygon) {
+                    const latlngs = layer.getLatLngs()[0]; // Outer ring
+                    polygons.push(latlngs.map(ll => [ll.lat, ll.lng]));
+                }
+            });
+        }
+    } catch (e) {
+        console.error("Error reading drawn polygons:", e);
     }
 
     // Collect data
