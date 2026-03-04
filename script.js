@@ -442,7 +442,6 @@ function initMapIfNeeded() {
             // Add a permanent static text label
             marker.bindTooltip(`
                 <span class="metro-label">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 240'><path d='M0 45l200-45v240H0z' fill='%23E00034'/><path d='M72 121l59 28 69-42v133H72z' fill='%23FFF'/></svg>" height="14" style="vertical-align: middle;">
                     ${station.name}
                 </span>
             `, {
