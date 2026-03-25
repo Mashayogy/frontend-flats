@@ -70,6 +70,7 @@ input[type="number"] {
     color: var(--tg-theme-text-color, #000);
     font-size: 16px;
     -moz-appearance: textfield;
+    appearance: textfield;
     /* Firefox */
 }
 
@@ -183,8 +184,17 @@ input:checked+.slider:before {
     box-shadow: none !important;
 }
 
+.leaflet-tooltip.metro-label-tooltip::before,
+.leaflet-tooltip.metro-label-tooltip::after,
+.metro-label-tooltip::before,
+.metro-label-tooltip::after {
+    display: none !important;
+    border: none !important;
+    content: none !important;
+}
+
 .metro-label {
-    font-size: 7px;
+    font-size: 8px;
     font-weight: 600;
     color: #000;
     white-space: nowrap;
@@ -192,4 +202,82 @@ input:checked+.slider:before {
     display: flex;
     align-items: center;
     gap: 2px;
+}
+
+/* AD CARDS */
+.ad-card {
+    background: var(--tg-theme-bg-color, #fff);
+    border: 1px solid var(--tg-theme-hint-color, #eee);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.ad-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+.ad-card-content {
+    padding: 16px;
+}
+
+.ad-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--tg-theme-text-color, #000);
+    margin-bottom: 4px;
+}
+
+.ad-title {
+    font-size: 16px;
+    color: var(--tg-theme-text-color, #333);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.ad-location {
+    font-size: 13px;
+    color: var(--tg-theme-hint-color, #888);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ad-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.ad-feature-pill {
+    background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+    color: var(--tg-theme-text-color, #333);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.ad-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 12px;
+    background: var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-text-color, #fff);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.ad-btn:active {
+    opacity: 0.8;
 }

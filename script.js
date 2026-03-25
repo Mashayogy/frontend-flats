@@ -78,7 +78,14 @@ const TRANSLATIONS = {
         loading: "Загрузка...",
         map_placeholder: "Карта будет здесь",
         alert_map: "Функция рисования на карте (Polygon) пока в разработке!",
-        map_hint: "Используйте инструмент многоугольника (⬟) слева на карте, чтобы выделить нужные области. Вы можете нарисовать несколько областей."
+        map_hint: "Используйте инструмент многоугольника (⬟) слева на карте, чтобы выделить нужные области. Вы можете нарисовать несколько областей.",
+        no_ads_title: "Ничего не найдено",
+        no_ads_desc: "Попробуйте изменить параметры поиска, чтобы увидеть больше вариантов.",
+        btn_change_filters: "Изменить фильтры",
+        ad_month: "€/мес",
+        ad_floor: "Этаж",
+        ad_view: "Смотреть объявление",
+        ad_found: "Найдено:"
     },
     en: {
         tab_search: "🔍 Search",
@@ -145,7 +152,14 @@ const TRANSLATIONS = {
         loading: "Loading...",
         map_placeholder: "Map will be here",
         alert_map: "Drawing area on map (Polygon) is still in development!",
-        map_hint: "Use the polygon tool (⬟) on the left of the map to draw areas. You can draw multiple areas."
+        map_hint: "Use the polygon tool (⬟) on the left of the map to draw areas. You can draw multiple areas.",
+        no_ads_title: "Nothing found",
+        no_ads_desc: "Try changing the search filters to see more options.",
+        btn_change_filters: "Change filters",
+        ad_month: "€/month",
+        ad_floor: "Floor",
+        ad_view: "View Ad",
+        ad_found: "Found:"
     },
     pt: {
         tab_search: "🔍 Busca",
@@ -212,7 +226,14 @@ const TRANSLATIONS = {
         loading: "A carregar...",
         map_placeholder: "O mapa estará aqui",
         alert_map: "A função de desenhar no mapa (Polígono) está em desenvolvimento!",
-        map_hint: "Use a ferramenta polígono (⬟) à esquerda no mapa para desenhar áreas. Pode desenhar várias áreas."
+        map_hint: "Use a ferramenta polígono (⬟) à esquerda no mapa para desenhar áreas. Pode desenhar várias áreas.",
+        no_ads_title: "Nada encontrado",
+        no_ads_desc: "Tente alterar os filtros de pesquisa para ver mais opções.",
+        btn_change_filters: "Alterar filtros",
+        ad_month: "€/mês",
+        ad_floor: "Andar",
+        ad_view: "Ver anúncio",
+        ad_found: "Encontrado:"
     },
     es: {
         tab_search: "🔍 Búsqueda",
@@ -279,7 +300,14 @@ const TRANSLATIONS = {
         loading: "Cargando...",
         map_placeholder: "El mapa estará aquí",
         alert_map: "¡La función de dibujar en el mapa (Polígono) está en desarrollo!",
-        map_hint: "Usa la herramienta polígono (⬟) a la izquierda en el mapa para dibujar áreas. Puedes dibujar múltiples áreas."
+        map_hint: "Usa la herramienta polígono (⬟) a la izquierda en el mapa para dibujar áreas. Puedes dibujar múltiples áreas.",
+        no_ads_title: "No se encontró nada",
+        no_ads_desc: "Intenta cambiar los filtros de búsqueda para ver más opciones.",
+        btn_change_filters: "Cambiar filtros",
+        ad_month: "€/mes",
+        ad_floor: "Planta",
+        ad_view: "Ver anuncio",
+        ad_found: "Encontrado:"
     }
 };
 
@@ -330,9 +358,8 @@ function switchTab(tabName) {
     // Highlight button
     const btns = document.querySelectorAll('.tab-btn');
     if (tabName === 'search') btns[0].classList.add('active');
-    if (tabName === 'results') btns[1].classList.add('active');
     if (tabName === 'map') {
-        btns[2].classList.add('active');
+        btns[1].classList.add('active');
         setTimeout(() => {
             if (typeof initMapIfNeeded === 'function') initMapIfNeeded();
         }, 100);
@@ -635,3 +662,117 @@ function loadFiltersFromUrl() {
 translateUI();
 loadFiltersFromUrl();
 updateDynamicUI();
+
+// ----------------------------------------------------
+// ADS TAB LOGIC (REAL DATA VIA API)
+// ----------------------------------------------------
+
+// NOTE: Since the webapp is hosted on GitHub Pages (HTTPS), fetching from HTTP will cause a Mixed Content error.
+// You will need to use a domain name with SSL/HTTPS or a Cloudflare tunnel for this API URL.
+const API_URL = "http://176.124.221.22:8000/api/ads";
+
+function fetchAndRenderAds() {
+    const container = document.getElementById('ads-container');
+    const placeholder = document.getElementById('no-ads-placeholder');
+    const counterText = document.getElementById('ads-counter-text');
+
+    // Show loading
+    container.innerHTML = '<div class="loading-spinner" data-i18n="loading">Загрузка...</div>';
+    placeholder.style.display = 'none';
+    counterText.innerText = "";
+
+    // Collect current filters
+    const params = new URLSearchParams();
+
+    const minPrice = document.getElementById('price-min').value;
+    if (minPrice) params.append('min_price', minPrice);
+
+    const maxPrice = document.getElementById('price-max').value;
+    if (maxPrice) params.append('max_price', maxPrice);
+
+    const minArea = document.getElementById('area-min').value;
+    if (minArea) params.append('min_area', minArea);
+
+    const maxArea = document.getElementById('area-max').value;
+    if (maxArea) params.append('max_area', maxArea);
+
+    const minFloor = document.getElementById('floor-min').value;
+    if (minFloor) params.append('min_floor', minFloor);
+
+    const maxFloor = document.getElementById('floor-max').value;
+    if (maxFloor) params.append('max_floor', maxFloor);
+
+    const minFloorsCount = document.getElementById('floors-count-min').value;
+    if (minFloorsCount) params.append('min_floors_count', minFloorsCount);
+
+    const maxFloorsCount = document.getElementById('floors-count-max').value;
+    if (maxFloorsCount) params.append('max_floors_count', maxFloorsCount);
+
+    const types = getSelectedValues('property-type');
+    if (types.length > 0) params.append('property_types', types.join(','));
+
+    const rooms = getSelectedValues('rooms');
+    if (rooms.length > 0) params.append('rooms', rooms.join(','));
+
+    const people = getSelectedValues('people-in-room');
+    if (people.length > 0) params.append('people_in_room', people.join(','));
+
+    const bathrooms = getSelectedValues('bathrooms');
+    if (bathrooms.length > 0) params.append('bathrooms', bathrooms.join(','));
+
+    const condition = getSelectedValues('condition');
+    if (condition.length > 0) params.append('condition', condition.join(','));
+
+    const features = getSelectedValues('features');
+    if (features.length > 0) params.append('features', features.join(','));
+
+    const rules = getSelectedValues('rules');
+    if (rules.length > 0) params.append('rules', rules.join(','));
+
+    // Fetch from real API
+    fetch(`${API_URL}?${params.toString()}`)
+        .then(response => response.json())
+        .then(filteredAds => {
+            container.innerHTML = '';
+            const t = TRANSLATIONS[currentLang] || TRANSLATIONS['ru'];
+
+            if (!filteredAds || filteredAds.length === 0) {
+                placeholder.style.display = 'block';
+                counterText.innerText = `${t.ad_found || "Найдено:"} 0`;
+            } else {
+                placeholder.style.display = 'none';
+                counterText.innerText = `${t.ad_found || "Найдено:"} ${filteredAds.length}`;
+
+                filteredAds.forEach(ad => {
+                    const card = document.createElement('div');
+                    card.className = 'ad-card';
+
+                    const featureHtml = (ad.features || []).map(f => {
+                        const label = t[`feat_${f}`] || f;
+                        return `<span class="ad-feature-pill">${label}</span>`;
+                    }).join('');
+
+                    const roomStr = ad.rooms_count === 0 ? (t.room_studio || "Studio") : `${ad.rooms_count} ${t.label_rooms || "rooms"}`;
+
+                    card.innerHTML = `
+                        <div class="ad-card-img" style="background-image: url('${ad.image}');"></div>
+                        <div class="ad-card-content">
+                            <div class="ad-price">${ad.price} ${t.ad_month || "€/мес"}</div>
+                            <div class="ad-title">${roomStr}, ${ad.area} м² • ${t.ad_floor || "Этаж"} ${ad.floor}</div>
+                            <div class="ad-location">📍 ${ad.location}</div>
+                            <div class="ad-features">
+                                ${featureHtml}
+                            </div>
+                            <a href="${ad.url}" target="_blank" class="ad-btn">${t.ad_view || "Смотреть объявление"}</a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        })
+        .catch(err => {
+            console.error("API Error:", err);
+            container.innerHTML = `<div style="color: red; padding: 20px; text-align: center;">Error loading ads: ${err.message}</div>`;
+            placeholder.style.display = 'none';
+        });
+}
