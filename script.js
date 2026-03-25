@@ -451,15 +451,33 @@ function updateDynamicUI() {
 }
 
 function showEnergyInfo() {
-    console.log("showEnergyInfo clicked");
-    const t = TRANSLATIONS[currentLang];
-    if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.showAlert(t.energy_info);
+    console.log("showEnergyInfo triggered");
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS['ru'];
+    const msg = t.energy_info;
+
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.showAlert) {
+        window.Telegram.WebApp.showAlert(msg);
     } else {
-        alert(t.energy_info);
+        alert(msg);
     }
 }
-window.showEnergyInfo = showEnergyInfo;
+
+// Add listeners when document is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('energy-info-btn');
+    if (btn) {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showEnergyInfo();
+        });
+        btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showEnergyInfo();
+        }, { passive: false });
+    }
+});
 
 function openMapDraw() {
     switchTab('map');
