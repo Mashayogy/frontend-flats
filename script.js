@@ -451,9 +451,15 @@ function updateDynamicUI() {
 }
 
 function showEnergyInfo() {
+    console.log("showEnergyInfo clicked");
     const t = TRANSLATIONS[currentLang];
-    tg.showAlert(t.energy_info);
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.showAlert(t.energy_info);
+    } else {
+        alert(t.energy_info);
+    }
 }
+window.showEnergyInfo = showEnergyInfo;
 
 function openMapDraw() {
     switchTab('map');
