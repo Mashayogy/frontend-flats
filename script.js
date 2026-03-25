@@ -67,6 +67,11 @@ const TRANSLATIONS = {
         metro_30: "до 30 мин",
         metro_any: "Не важно",
         label_environment: "Окружение",
+        label_energy: "Энергоэффективность",
+        energy_high: "Высокая",
+        energy_medium: "Средняя",
+        energy_low: "Низкая",
+        energy_info: "Показывает, сколько энергии требуется объекту для работы при минимально посильном потреблении. Эффективность оценивается буквами: чем выше рейтинг (A, B и т. д.), тем эффективнее объект.\n\nВы можете фильтровать по высокой эффективности (A+, A, B, B-), средней (C, D) или низкой (E, F).",
         env_park: "Парк рядом",
         env_quiet: "Без шумных дорог рядом",
         title_notifications: "🔔 Уведомления",
@@ -141,6 +146,11 @@ const TRANSLATIONS = {
         metro_30: "up to 30 min",
         metro_any: "Any",
         label_environment: "Environment",
+        label_energy: "Energy Efficiency",
+        energy_high: "High",
+        energy_medium: "Medium",
+        energy_low: "Low",
+        energy_info: "Indicates how much energy a property needs to operate with the lowest possible consumption. Efficiency is rated by letters: the higher the rating (A, B, etc.), the more efficient the property is.\n\nYou can filter by high efficiency (A+, A, B, B-), medium (C, D) or low (E, F).",
         env_park: "Park nearby",
         env_quiet: "No noisy roads",
         title_notifications: "🔔 Notifications",
@@ -215,6 +225,11 @@ const TRANSLATIONS = {
         metro_30: "até 30 min",
         metro_any: "Indiferente",
         label_environment: "Envolvente",
+        label_energy: "Eficiência Energética",
+        energy_high: "Alta",
+        energy_medium: "Média",
+        energy_low: "Baixa",
+        energy_info: "Indica quanta energia uma propriedade necessita para funcionar com o menor consumo possível. A eficiência é classificada por letras: quanto maior a classificação (A, B, etc.), mais eficiente é a propriedade.\n\nPode filtrar por eficiência alta (A+, A, B, B-), média (C, D) ou baixa (E, F).",
         env_park: "Próximo de parque",
         env_quiet: "Sem estradas barulhentas",
         title_notifications: "🔔 Notificações",
@@ -289,6 +304,11 @@ const TRANSLATIONS = {
         metro_30: "hasta 30 min",
         metro_any: "Cualquiera",
         label_environment: "Entorno",
+        label_energy: "Eficiencia Energética",
+        energy_high: "Alta",
+        energy_medium: "Media",
+        energy_low: "Baja",
+        energy_info: "Indica cuánta energía necesita una propiedad para funcionar con el menor consumo posible. La eficiencia se califica con letras: cuanto mayor sea la calificación (A, B, etc.), más eficiente será la propiedad.\n\nPuede filtrar por alta eficiencia (A+, A, B, B-), media (C, D) o baja (E, F).",
         env_park: "Parque cerca",
         env_quiet: "Sin carreteras ruidosas",
         title_notifications: "🔔 Notificaciones",
@@ -430,6 +450,11 @@ function updateDynamicUI() {
     }
 }
 
+function showEnergyInfo() {
+    const t = TRANSLATIONS[currentLang];
+    tg.showAlert(t.energy_info);
+}
+
 function openMapDraw() {
     switchTab('map');
 }
@@ -569,7 +594,6 @@ function sendData() {
         min_floors_count: document.getElementById('floors-count-min').value,
         max_floors_count: document.getElementById('floors-count-max').value,
 
-        metro_minutes: getSelectedValues('metro-distance')[0] || 'any',
 
         no_commission: document.getElementById('no-commission').checked,
 
@@ -582,6 +606,7 @@ function sendData() {
         rules: getSelectedValues('rules'),
         environment: getSelectedValues('environment'),
         notification_type: getSelectedValues('notification-type')[0] || 'new',
+        energy_efficiency: getSelectedValues('energy-efficiency'),
         language: currentLang,
         polygons: polygons,
         region: document.getElementById('region-select').value
@@ -624,16 +649,16 @@ function loadFiltersFromUrl() {
     }
 
     // 3. Multi-select Pills
-    const groups = ['property_type', 'rooms', 'people_in_room', 'bathrooms', 'condition', 'features', 'rules', 'environment', 'metro_minutes', 'notification_type'];
+    const groups = ['property_type', 'rooms', 'people_in_room', 'bathrooms', 'condition', 'features', 'rules', 'environment', 'energy_efficiency', 'notification_type'];
     groups.forEach(group => {
         const val = params.get(group);
         if (val) {
             const values = val.split(',');
-            const groupId = group.replace('_type', '-type').replace('_minutes', '-distance').replace('_in_room', '-in-room');
+            const groupId = group.replace('_type', '-type').replace('_minutes', '-distance').replace('_in_room', '-in-room').replace('_efficiency', '-efficiency');
             values.forEach(v => {
                 const pill = document.querySelector(`#${groupId} .pill[data-value="${v}"]`);
                 if (pill) {
-                    if (groupId === 'metro-distance' || groupId === 'notification-type') {
+                    if (groupId === 'notification-type') {
                         selectOnePill(pill, groupId);
                     } else {
                         pill.classList.add('selected');
@@ -728,6 +753,9 @@ function fetchAndRenderAds() {
 
     const rules = getSelectedValues('rules');
     if (rules.length > 0) params.append('rules', rules.join(','));
+
+    const energy = getSelectedValues('energy-efficiency');
+    if (energy.length > 0) params.append('energy_efficiency', energy.join(','));
 
     // Fetch from real API
     fetch(`${API_URL}?${params.toString()}`)

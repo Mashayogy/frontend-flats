@@ -154,6 +154,21 @@ input:checked+.slider:before {
     color: var(--tg-theme-button-text-color, #fff);
 }
 
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--tg-theme-secondary-bg-color, #eee);
+    color: var(--tg-theme-button-color, #2481cc);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
 /* MAIN BUTTON */
 .main-button-container {
     position: fixed;

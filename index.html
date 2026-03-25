@@ -135,6 +135,22 @@
                 </div>
             </div>
 
+            <!-- 7.5 Энергоэффективность -->
+            <div class="form-group">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <label style="margin-bottom: 0;" data-i18n="label_energy">Энергоэффективность</label>
+                    <span class="info-icon" onclick="showEnergyInfo()">ⓘ</span>
+                </div>
+                <div class="pill-group" id="energy-efficiency">
+                    <div class="pill" data-value="high" onclick="togglePill(this, 'energy-efficiency')"
+                        data-i18n="energy_high">Высокая</div>
+                    <div class="pill" data-value="medium" onclick="togglePill(this, 'energy-efficiency')"
+                        data-i18n="energy_medium">Средняя</div>
+                    <div class="pill" data-value="low" onclick="togglePill(this, 'energy-efficiency')"
+                        data-i18n="energy_low">Низкая</div>
+                </div>
+            </div>
+
 
 
             <!-- 8. Характеристики -->
@@ -204,27 +220,6 @@
             <div class="form-group">
                 <button class="action-btn" onclick="openMapDraw()" data-i18n="btn_map">🗺 Нарисовать область на
                     карте</button>
-            </div>
-
-            <!-- 12. Время до метро -->
-            <div class="form-group">
-                <label data-i18n="label_metro">Время до метро</label>
-                <div class="pill-group" id="metro-distance">
-                    <div class="pill" data-value="5" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_5">до 5 мин</div>
-                    <div class="pill" data-value="10" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_10">до 10 мин</div>
-                    <div class="pill" data-value="15" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_15">до 15 мин</div>
-                    <div class="pill" data-value="20" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_20">до 20 мин</div>
-                    <div class="pill" data-value="25" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_25">до 25 мин</div>
-                    <div class="pill" data-value="30" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_30">до 30 мин</div>
-                    <div class="pill selected" data-value="any" onclick="selectOnePill(this, 'metro-distance')"
-                        data-i18n="metro_any">Не важно</div>
-                </div>
             </div>
 
             <!-- 13. Окружение -->
