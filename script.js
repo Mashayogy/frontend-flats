@@ -38,6 +38,7 @@ const TRANSLATIONS = {
         cond_new: "Новостройка",
         cond_good: "Хорошее состояние",
         cond_renovation: "Нужен ремонт",
+        condition_info: "Новостройка — дом, введенный в эксплуатацию после 2020 года.\nХорошее состояние — дома, построенные в период с 1975 по 2020 (не вкл.).\nТребует ремонта — дома, построенные до 1975 года.",
         label_features: "Характеристики",
         feat_furniture: "Мебель",
         feat_ac: "Кондиционер",
@@ -117,6 +118,7 @@ const TRANSLATIONS = {
         cond_new: "New building",
         cond_good: "Good condition",
         cond_renovation: "Needs renovation",
+        condition_info: "New building — house commissioned after 2020.\nGood condition — houses built between 1975 and 2020 (excl.).\nNeeds renovation — houses built before 1975.",
         label_features: "Features",
         feat_furniture: "Furniture",
         feat_ac: "Air conditioning",
@@ -472,17 +474,29 @@ function showEnergyInfo() {
 
 // Add listeners when document is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('energy-info-btn');
-    if (btn) {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
+    const energyInfoBtn = document.getElementById('energy-info-btn');
+    if (energyInfoBtn) {
+        energyInfoBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            showEnergyInfo();
+            showModal(TRANSLATIONS[currentLang].energy_info);
         });
-        btn.addEventListener('touchstart', (e) => {
+        energyInfoBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            showEnergyInfo();
+            showModal(TRANSLATIONS[currentLang].energy_info);
+        }, { passive: false });
+    }
+
+    const conditionInfoBtn = document.getElementById('condition-info-btn');
+    if (conditionInfoBtn) {
+        conditionInfoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showModal(TRANSLATIONS[currentLang].condition_info);
+        });
+        conditionInfoBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showModal(TRANSLATIONS[currentLang].condition_info);
         }, { passive: false });
     }
 

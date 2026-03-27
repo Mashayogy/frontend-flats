@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260327-1">
 </head>
 
 <body>
@@ -122,9 +122,11 @@
                 </div>
             </div>
 
-            <!-- 7. Состояние -->
             <div class="form-group">
-                <label data-i18n="label_condition">Состояние</label>
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <label style="margin-bottom: 0;" data-i18n="label_condition">Состояние</label>
+                    <span class="info-icon" id="condition-info-btn">ⓘ</span>
+                </div>
                 <div class="pill-group" id="condition">
                     <div class="pill" data-value="new" onclick="togglePill(this, 'condition')" data-i18n="cond_new">
                         Новостройка</div>
@@ -277,11 +279,11 @@
     </div>
 
     <div style="text-align: center; padding: 20px; color: #888; font-size: 10px;">
-        v.20260325-v3
+        v.20260327-1
     </div>
 
     <script src="metro_stations.js"></script>
-    <script src="script.js?v=20260325-1"></script>
+    <script src="script.js?v=20260327-1"></script>
 </body>
 
 </html>
