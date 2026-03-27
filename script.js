@@ -452,18 +452,14 @@ function updateDynamicUI() {
     }
 }
 
-function showEnergyInfo() {
-    console.log("showEnergyInfo triggered (v3)");
-    const t = TRANSLATIONS[currentLang] || TRANSLATIONS['ru'];
-    const msg = t.energy_info;
-
+function showModal(msg) {
+    if (!msg) return;
     const modal = document.getElementById('info-modal');
     const modalText = document.getElementById('modal-text');
     if (modal && modalText) {
         modalText.innerText = msg;
         modal.style.display = 'block';
     } else {
-        // Fallback if modal elements missing
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.showAlert) {
             window.Telegram.WebApp.showAlert(msg);
         } else {
