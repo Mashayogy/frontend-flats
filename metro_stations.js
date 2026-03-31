@@ -60,3 +60,30 @@ const LISBON_METRO_STATIONS = [
     { name: "Encarnação", lat: 38.7749, lng: -9.1186, line: "red", color: "#E00034" },
     { name: "Aeroporto", lat: 38.7686, lng: -9.1283, line: "red", color: "#E00034" }
 ];
+
+const PORTO_METRO_STATIONS = [
+    { name: "Trindade", lat: 41.1517, lng: -8.6094, color: "#0055A4" },
+    { name: "Casa da Música", lat: 41.1583, lng: -8.6305, color: "#0055A4" },
+    { name: "São Bento", lat: 41.1456, lng: -8.6106, color: "#0055A4" },
+    { name: "Aliados", lat: 41.1481, lng: -8.6111, color: "#0055A4" },
+    { name: "Bolhão", lat: 41.1492, lng: -8.6046, color: "#0055A4" },
+    { name: "24 de Agosto", lat: 41.1501, lng: -8.5985, color: "#0055A4" },
+    { name: "Heroísmo", lat: 41.1488, lng: -8.5919, color: "#0055A4" },
+    { name: "Campanhã", lat: 41.1501, lng: -8.5833, color: "#0055A4" },
+    { name: "Estádio do Dragão", lat: 41.1614, lng: -8.5833, color: "#0055A4" },
+    { name: "Lapa", lat: 41.1558, lng: -8.6158, color: "#0055A4" },
+    { name: "Carolina Michaelis", lat: 41.1578, lng: -8.6219, color: "#0055A4" },
+    { name: "Francos", lat: 41.1661, lng: -8.6381, color: "#0055A4" },
+    { name: "Ramalde", lat: 41.1739, lng: -8.6469, color: "#0055A4" },
+    { name: "Senhora da Hora", lat: 41.1878, lng: -8.6575, color: "#0055A4" },
+    { name: "Hospital São João", lat: 41.1822, lng: -8.6006, color: "#0055A4" },
+    { name: "Pólo Universitário", lat: 41.1736, lng: -8.6008, color: "#0055A4" },
+    { name: "Salgueiros", lat: 41.1667, lng: -8.5986, color: "#0055A4" },
+    { name: "Marquês", lat: 41.1611, lng: -8.6044, color: "#0055A4" },
+    { name: "Faria Guimarães", lat: 41.1567, lng: -8.6092, color: "#0055A4" },
+    { name: "Câmara de Gaia", lat: 41.1306, lng: -8.6053, color: "#0055A4" },
+    { name: "D. João II", lat: 41.1214, lng: -8.6019, color: "#0055A4" },
+    { name: "Santo Ovídio", lat: 41.1155, lng: -8.6066, color: "#0055A4" },
+    { name: "Jardim do Morro", lat: 41.1376, lng: -8.6087, color: "#0055A4" },
+    { name: "General Torres", lat: 41.1336, lng: -8.6075, color: "#0055A4" }
+];

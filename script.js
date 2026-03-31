@@ -92,7 +92,7 @@ const TRANSLATIONS = {
         title_location: "📍 Расположение",
         label_region: "Регион",
         option_lisbon: "Лиссабон",
-        option_porto: "Порту (скоро)",
+        option_porto: "Порту",
         btn_map: "🗺 Нарисовать область на карте",
         label_metro: "Время до метро",
         metro_5: "до 5 мин",
@@ -177,7 +177,7 @@ const TRANSLATIONS = {
         title_location: "📍 Location",
         label_region: "Region",
         option_lisbon: "Lisbon",
-        option_porto: "Porto (soon)",
+        option_porto: "Porto",
         btn_map: "🗺 Draw area on map",
         label_metro: "Time to metro",
         metro_5: "up to 5 min",
@@ -261,7 +261,7 @@ const TRANSLATIONS = {
         title_location: "📍 Localização",
         label_region: "Região",
         option_lisbon: "Lisboa",
-        option_porto: "Porto (brevemente)",
+        option_porto: "Porto",
         btn_map: "🗺 Desenhar área no mapa",
         label_metro: "Tempo ao metro",
         metro_5: "até 5 min",
@@ -340,7 +340,7 @@ const TRANSLATIONS = {
         title_location: "📍 Ubicación",
         label_region: "Región",
         option_lisbon: "Lisboa",
-        option_porto: "Oporto (pronto)",
+        option_porto: "Oporto",
         btn_map: "🗺 Dibujar área en el mapa",
         label_metro: "Tiempo al metro",
         metro_5: "hasta 5 min",
@@ -423,14 +423,26 @@ function translateUI() {
 }
 
 // Tab Logic
+let lastSearchScroll = 0;
 function switchTab(tabName) {
     const t = TRANSLATIONS[currentLang];
+
+    // Save scroll position if we are currently on the search tab and switching away
+    if (document.getElementById('tab-search').classList.contains('active') && tabName !== 'search') {
+        lastSearchScroll = window.scrollY || document.documentElement.scrollTop;
+    }
+
     // Hide all
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
     // Show current
     document.getElementById(`tab-${tabName}`).classList.add('active');
+
+    // Restore scroll position if returning to search
+    if (tabName === 'search') {
+        setTimeout(() => window.scrollTo(0, lastSearchScroll), 0);
+    }
 
     // Highlight button
     const btns = document.querySelectorAll('.tab-btn');
@@ -591,18 +603,18 @@ function initMapIfNeeded() {
     map.addLayer(drawnItems);
 
     // Draw Metro Stations if available
+    const metroLayer = L.layerGroup();
+
     if (typeof LISBON_METRO_STATIONS !== 'undefined') {
-        const metroLayer = L.layerGroup();
         LISBON_METRO_STATIONS.forEach(station => {
             const marker = L.circleMarker([station.lat, station.lng], {
                 radius: 4,
-                fillColor: station.color,
+                fillColor: station.color || "#0072CE",
                 color: "#fff",
                 weight: 1,
                 opacity: 1,
                 fillOpacity: 1
             });
-            // Add a permanent static text label
             marker.bindTooltip(`
                 <span class="metro-label">
                     ${station.name}
@@ -615,8 +627,33 @@ function initMapIfNeeded() {
             });
             metroLayer.addLayer(marker);
         });
-        metroLayer.addTo(map);
     }
+
+    if (typeof PORTO_METRO_STATIONS !== 'undefined') {
+        PORTO_METRO_STATIONS.forEach(station => {
+            const marker = L.circleMarker([station.lat, station.lng], {
+                radius: 4,
+                fillColor: station.color || "#0055A4",
+                color: "#fff",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 1
+            });
+            marker.bindTooltip(`
+                <span class="metro-label">
+                    ${station.name}
+                </span>
+            `, {
+                permanent: true,
+                direction: 'top',
+                offset: [0, -2],
+                className: 'metro-label-tooltip'
+            });
+            metroLayer.addLayer(marker);
+        });
+    }
+
+    metroLayer.addTo(map);
 
     const drawControl = new L.Control.Draw({
         draw: {
