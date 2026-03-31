@@ -77,17 +77,44 @@ const PORTO_METRO_STATIONS = [
     { name: "D. João II", lat: 41.1214, lng: -8.6019, line: "yellow", color: "#FFDE00" },
     { name: "Santo Ovídio", lat: 41.1155, lng: -8.6066, line: "yellow", color: "#FFDE00" },
 
-    // Trunk Line (A, B, C, E, F - Blue, Red, Green, Violet, Orange)
-    // We'll use Blue as the primary representative for the trunk
+    // Line A (Blue - Linha Azul)
+    { name: "Senhor de Matosinhos", lat: 41.1848, lng: -8.6948, line: "A", color: "#0055A4" },
+    { name: "Brito Capelo", lat: 41.1818, lng: -8.6934, line: "A", color: "#0055A4" },
+    { name: "Matosinhos Sul", lat: 41.1764, lng: -8.6896, line: "A", color: "#0055A4" },
+    { name: "Pedro Hispano", lat: 41.1794, lng: -8.6726, line: "A", color: "#0055A4" },
+    { name: "Sete Bicas", lat: 41.1788, lng: -8.6601, line: "A", color: "#0055A4" },
+    { name: "Senhora da Hora", lat: 41.1878, lng: -8.6575, line: "interchange", color: "#0055A4" },
+
+    // Line B (Red - Linha Vermelha)
+    { name: "Póvoa de Varzim", lat: 41.3781, lng: -8.7610, line: "B", color: "#E00034" },
+    { name: "Vila do Conde", lat: 41.3533, lng: -8.7411, line: "B", color: "#E00034" },
+    { name: "Mindelo", lat: 41.3129, lng: -8.7118, line: "B", color: "#E00034" },
+    { name: "Modivas Sul", lat: 41.2829, lng: -8.6818, line: "B", color: "#E00034" },
+
+    // Line C (Green - Linha Verde)
+    { name: "ISMAI", lat: 41.2818, lng: -8.6144, line: "C", color: "#009E60" },
+    { name: "Fórum Maia", lat: 41.2332, lng: -8.6225, line: "C", color: "#009E60" },
+    { name: "Fonte do Cuco", lat: 41.1969, lng: -8.6554, line: "C", color: "#009E60" },
+
+    // Line E (Violet - Linha Violeta)
+    { name: "Aeroporto", lat: 41.2372, lng: -8.6706, line: "E", color: "#A1006B" },
+    { name: "Botica", lat: 41.2294, lng: -8.6644, line: "E", color: "#A1006B" },
+    { name: "Verdes", lat: 41.2201, lng: -8.6596, line: "E", color: "#A1006B" },
+
+    // Line F (Orange - Linha Laranja)
+    { name: "Fânzeres", lat: 41.1736, lng: -8.5284, line: "F", color: "#F68D2E" },
+    { name: "Venda Nova", lat: 41.1764, lng: -8.5414, line: "F", color: "#F68D2E" },
+    { name: "Rio Tinto", lat: 41.1794, lng: -8.5584, line: "F", color: "#F68D2E" },
+    { name: "Contumil", lat: 41.1684, lng: -8.5774, line: "F", color: "#F68D2E" },
+
+    // Shared Trunk (Trindade is the main hub)
     { name: "Casa da Música", lat: 41.1583, lng: -8.6305, line: "trunk", color: "#0055A4" },
+    { name: "Carolina Michaelis", lat: 41.1578, lng: -8.6219, line: "trunk", color: "#0055A4" },
+    { name: "Lapa", lat: 41.1558, lng: -8.6158, line: "trunk", color: "#0055A4" },
+    { name: "Trindade", lat: 41.1517, lng: -8.6094, line: "interchange", color: "#0055A4" },
     { name: "Bolhão", lat: 41.1492, lng: -8.6046, line: "trunk", color: "#0055A4" },
     { name: "24 de Agosto", lat: 41.1501, lng: -8.5985, line: "trunk", color: "#0055A4" },
     { name: "Heroísmo", lat: 41.1488, lng: -8.5919, line: "trunk", color: "#0055A4" },
     { name: "Campanhã", lat: 41.1501, lng: -8.5833, line: "trunk", color: "#0055A4" },
-    { name: "Estádio do Dragão", lat: 41.1614, lng: -8.5833, line: "trunk", color: "#0055A4" },
-    { name: "Lapa", lat: 41.1558, lng: -8.6158, line: "trunk", color: "#0055A4" },
-    { name: "Carolina Michaelis", lat: 41.1578, lng: -8.6219, line: "trunk", color: "#0055A4" },
-    { name: "Francos", lat: 41.1661, lng: -8.6381, line: "trunk", color: "#0055A4" },
-    { name: "Ramalde", lat: 41.1739, lng: -8.6469, line: "trunk", color: "#0055A4" },
-    { name: "Senhora da Hora", lat: 41.1878, lng: -8.6575, line: "trunk", color: "#0055A4" }
+    { name: "Estádio do Dragão", lat: 41.1614, lng: -8.5833, line: "trunk", color: "#0055A4" }
 ];
