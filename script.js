@@ -11,6 +11,41 @@ document.documentElement.style.setProperty('--tg-theme-button-color', tg.themePa
 document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color);
 document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color);
 
+function checkUserStatus() {
+    const userId = tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : null;
+    if (!userId) return;
+
+    fetch(`${STATUS_URL}?chat_id=${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            const banner = document.getElementById('premium-banner');
+            if (data.is_paid) {
+                banner.style.display = 'none';
+            } else {
+                banner.style.display = 'flex';
+                const timer = document.getElementById('premium-timer');
+                const title = document.querySelector('.premium-text b');
+                const t = TRANSLATIONS[currentLang] || TRANSLATIONS['ru'];
+
+                if (data.expired) {
+                    title.innerText = t.premium_expired_title;
+                    timer.innerText = t.premium_expired_desc;
+                    // Inhibit search if expired? We already do it on backend anyway
+                } else {
+                    title.innerText = t.premium_title;
+                    timer.innerText = t.premium_trial_desc.replace('{days}', data.days_left);
+                }
+
+                document.getElementById('upgrade-btn').onclick = () => {
+                    tg.openLink(`https://lava.top/portugal-rental-radar?chat_id=${userId}`);
+                };
+            }
+        })
+        .catch(err => console.error("Status fetch error:", err));
+}
+
+checkUserStatus();
+
 // Multi-language support
 const TRANSLATIONS = {
     ru: {
@@ -91,7 +126,12 @@ const TRANSLATIONS = {
         ad_month: "€/мес",
         ad_floor: "Этаж",
         ad_view: "Смотреть объявление",
-        ad_found: "Найдено:"
+        ad_found: "Найдено:",
+        premium_title: "Premium Доступ",
+        premium_trial_desc: "Ваш триал закончится через {days} дн.",
+        premium_expired_title: "Триал завершен",
+        premium_expired_desc: "Оплатите доступ для новых уведомлений",
+        btn_upgrade: "Оплатить"
     },
     en: {
         tab_search: "🔍 Search",
@@ -171,7 +211,12 @@ const TRANSLATIONS = {
         ad_month: "€/month",
         ad_floor: "Floor",
         ad_view: "View Ad",
-        ad_found: "Found:"
+        ad_found: "Found:",
+        premium_title: "Premium Access",
+        premium_trial_desc: "Trial ends in {days} days",
+        premium_expired_title: "Trial Expired",
+        premium_expired_desc: "Upgrade to keep receiving alerts",
+        btn_upgrade: "Upgrade"
     },
     pt: {
         tab_search: "🔍 Busca",
@@ -338,8 +383,18 @@ let map = null;
 let drawnItems = null;
 
 const REGION_COORDS = {
-    lisbon: [38.7223, -9.1393],
-    porto: [41.1579, -8.6291]
+    'lisbon': [38.7223, -9.1393],
+    'porto': [41.1579, -8.6291],
+    'setubal': [38.5243, -8.8926],
+    'braga': [41.5454, -8.4265],
+    'aveiro': [40.6405, -8.6538],
+    'faro': [37.0194, -7.9322],
+    'coimbra': [40.2033, -8.4103],
+    'sintra': [38.7983, -9.3879],
+    'cascais': [38.6970, -9.4223],
+    'loures': [38.8315, -9.1741],
+    'tavira': [37.1264, -7.6499],
+    'evora': [38.5714, -7.9135]
 };
 
 window.pendingPolygons = [];
@@ -751,6 +806,7 @@ updateDynamicUI();
 // NOTE: Since the webapp is hosted on GitHub Pages (HTTPS), fetching from HTTP will cause a Mixed Content error.
 // You will need to use a domain name with SSL/HTTPS or a Cloudflare tunnel for this API URL.
 const API_URL = "http://176.124.221.22:8000/api/ads";
+const STATUS_URL = "http://176.124.221.22:8000/api/user_status";
 
 function fetchAndRenderAds() {
     const container = document.getElementById('ads-container');

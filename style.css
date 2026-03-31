@@ -348,4 +348,45 @@ input:checked+.slider:before {
 
 .close-modal:hover {
     color: var(--tg-theme-text-color, #000);
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3);
+}
+
+.premium-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.premium-icon {
+    font-size: 24px;
+}
+
+.premium-text b {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.premium-text p {
+    margin: 0;
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.upgrade-btn {
+    background: white;
+    color: #6e8efb;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upgrade-btn:active {
+    transform: scale(0.95);
 }

@@ -15,6 +15,18 @@
 
 <body>
     <div id="main-container">
+        <!-- PREMIUM BANNER -->
+        <div id="premium-banner" class="premium-banner" style="display: none;">
+            <div class="premium-content">
+                <span class="premium-icon">⭐</span>
+                <div class="premium-text">
+                    <b data-i18n="premium_title">Premium Access</b>
+                    <p id="premium-timer" data-i18n="premium_trial_desc">Ваш триал скоро закончится</p>
+                </div>
+            </div>
+            <button id="upgrade-btn" class="upgrade-btn" data-i18n="btn_upgrade">Оплатить</button>
+        </div>
+
         <!-- TABS -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('search')" data-i18n="tab_search">🔍 Поиск</button>
@@ -166,7 +178,7 @@
                     <div class="pill" data-value="lift" onclick="togglePill(this, 'features')" data-i18n="feat_lift">
                         Лифт</div>
                     <div class="pill" data-value="garage" onclick="togglePill(this, 'features')"
-                        data-i18n="feat_garage">Гараж</div>
+                        data-i18n="feat_garage">Гараж или парковка</div>
                     <div class="pill" data-value="garden" onclick="togglePill(this, 'features')"
                         data-i18n="feat_garden">Сад</div>
                     <div class="pill" data-value="pool" onclick="togglePill(this, 'features')" data-i18n="feat_pool">
@@ -216,6 +228,16 @@
                 <select id="region-select" onchange="changeRegion()">
                     <option value="lisbon" data-i18n="option_lisbon">Лиссабон</option>
                     <option value="porto" data-i18n="option_porto">Порту</option>
+                    <option value="setubal">Сетубал</option>
+                    <option value="braga">Брага</option>
+                    <option value="aveiro">Авейру</option>
+                    <option value="faro">Фару</option>
+                    <option value="coimbra">Коимбра</option>
+                    <option value="sintra">Синтра</option>
+                    <option value="cascais">Кашкайш</option>
+                    <option value="loures">Лореш</option>
+                    <option value="tavira">Тавира</option>
+                    <option value="evora">Эвора</option>
                 </select>
             </div>
 
