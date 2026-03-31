@@ -62,28 +62,32 @@ const LISBON_METRO_STATIONS = [
 ];
 
 const PORTO_METRO_STATIONS = [
-    { name: "Trindade", lat: 41.1517, lng: -8.6094, color: "#0055A4" },
-    { name: "Casa da Música", lat: 41.1583, lng: -8.6305, color: "#0055A4" },
-    { name: "São Bento", lat: 41.1456, lng: -8.6106, color: "#0055A4" },
-    { name: "Aliados", lat: 41.1481, lng: -8.6111, color: "#0055A4" },
-    { name: "Bolhão", lat: 41.1492, lng: -8.6046, color: "#0055A4" },
-    { name: "24 de Agosto", lat: 41.1501, lng: -8.5985, color: "#0055A4" },
-    { name: "Heroísmo", lat: 41.1488, lng: -8.5919, color: "#0055A4" },
-    { name: "Campanhã", lat: 41.1501, lng: -8.5833, color: "#0055A4" },
-    { name: "Estádio do Dragão", lat: 41.1614, lng: -8.5833, color: "#0055A4" },
-    { name: "Lapa", lat: 41.1558, lng: -8.6158, color: "#0055A4" },
-    { name: "Carolina Michaelis", lat: 41.1578, lng: -8.6219, color: "#0055A4" },
-    { name: "Francos", lat: 41.1661, lng: -8.6381, color: "#0055A4" },
-    { name: "Ramalde", lat: 41.1739, lng: -8.6469, color: "#0055A4" },
-    { name: "Senhora da Hora", lat: 41.1878, lng: -8.6575, color: "#0055A4" },
-    { name: "Hospital São João", lat: 41.1822, lng: -8.6006, color: "#0055A4" },
-    { name: "Pólo Universitário", lat: 41.1736, lng: -8.6008, color: "#0055A4" },
-    { name: "Salgueiros", lat: 41.1667, lng: -8.5986, color: "#0055A4" },
-    { name: "Marquês", lat: 41.1611, lng: -8.6044, color: "#0055A4" },
-    { name: "Faria Guimarães", lat: 41.1567, lng: -8.6092, color: "#0055A4" },
-    { name: "Câmara de Gaia", lat: 41.1306, lng: -8.6053, color: "#0055A4" },
-    { name: "D. João II", lat: 41.1214, lng: -8.6019, color: "#0055A4" },
-    { name: "Santo Ovídio", lat: 41.1155, lng: -8.6066, color: "#0055A4" },
-    { name: "Jardim do Morro", lat: 41.1376, lng: -8.6087, color: "#0055A4" },
-    { name: "General Torres", lat: 41.1336, lng: -8.6075, color: "#0055A4" }
+    // Yellow Line (Linha Amarela - D)
+    { name: "Hospital São João", lat: 41.1822, lng: -8.6006, line: "yellow", color: "#FFDE00" },
+    { name: "Pólo Universitário", lat: 41.1736, lng: -8.6008, line: "yellow", color: "#FFDE00" },
+    { name: "Salgueiros", lat: 41.1667, lng: -8.5986, line: "yellow", color: "#FFDE00" },
+    { name: "Marquês", lat: 41.1611, lng: -8.6044, line: "yellow", color: "#FFDE00" },
+    { name: "Faria Guimarães", lat: 41.1567, lng: -8.6092, line: "yellow", color: "#FFDE00" },
+    { name: "Trindade", lat: 41.1517, lng: -8.6094, line: "interchange", color: "#0055A4" },
+    { name: "Aliados", lat: 41.1481, lng: -8.6111, line: "yellow", color: "#FFDE00" },
+    { name: "São Bento", lat: 41.1456, lng: -8.6106, line: "yellow", color: "#FFDE00" },
+    { name: "Jardim do Morro", lat: 41.1376, lng: -8.6087, line: "yellow", color: "#FFDE00" },
+    { name: "General Torres", lat: 41.1336, lng: -8.6075, line: "yellow", color: "#FFDE00" },
+    { name: "Câmara de Gaia", lat: 41.1306, lng: -8.6053, line: "yellow", color: "#FFDE00" },
+    { name: "D. João II", lat: 41.1214, lng: -8.6019, line: "yellow", color: "#FFDE00" },
+    { name: "Santo Ovídio", lat: 41.1155, lng: -8.6066, line: "yellow", color: "#FFDE00" },
+
+    // Trunk Line (A, B, C, E, F - Blue, Red, Green, Violet, Orange)
+    // We'll use Blue as the primary representative for the trunk
+    { name: "Casa da Música", lat: 41.1583, lng: -8.6305, line: "trunk", color: "#0055A4" },
+    { name: "Bolhão", lat: 41.1492, lng: -8.6046, line: "trunk", color: "#0055A4" },
+    { name: "24 de Agosto", lat: 41.1501, lng: -8.5985, line: "trunk", color: "#0055A4" },
+    { name: "Heroísmo", lat: 41.1488, lng: -8.5919, line: "trunk", color: "#0055A4" },
+    { name: "Campanhã", lat: 41.1501, lng: -8.5833, line: "trunk", color: "#0055A4" },
+    { name: "Estádio do Dragão", lat: 41.1614, lng: -8.5833, line: "trunk", color: "#0055A4" },
+    { name: "Lapa", lat: 41.1558, lng: -8.6158, line: "trunk", color: "#0055A4" },
+    { name: "Carolina Michaelis", lat: 41.1578, lng: -8.6219, line: "trunk", color: "#0055A4" },
+    { name: "Francos", lat: 41.1661, lng: -8.6381, line: "trunk", color: "#0055A4" },
+    { name: "Ramalde", lat: 41.1739, lng: -8.6469, line: "trunk", color: "#0055A4" },
+    { name: "Senhora da Hora", lat: 41.1878, lng: -8.6575, line: "trunk", color: "#0055A4" }
 ];
